@@ -15,8 +15,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            /* ★ 아래 url('image.png') 부분을 GitHub의 Raw 주소로 변경해주세요 */
-            background-image: url('image.png');
+            background-image: url('image_1.png');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -53,8 +52,7 @@
             justify-content: space-between;
             align-items: center;
             text-align: center;
-            /* ★ 아래 url('image.png') 부분도 필요시 GitHub의 Raw 주소로 변경해주세요 */
-            background-image: url('image.png');
+            background-image: url('image_1.png');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -199,7 +197,6 @@
             text-overflow: ellipsis;
         }
 
-        /* 선택된 상태 유지 스타일 */
         .choice-card.selected .card-info {
             background-color: #007AFF;
         }
@@ -403,20 +400,48 @@
     </div>
 
     <script>
-        const rawItems = Array.from({ length: 32 }, (_, i) => ({
-            id: i + 1,
-            name: `스타즈 베이커리 ${i + 1}`,
-            // ★ 아래 "image.png" 부분을 GitHub의 Raw 주소로 변경해주세요
-            image: "image.png",
-            score: 1000
-        }));
+        /* 32개의 전체 떡밥 데이터 및 파일 매칭 */
+        const rawItems = [
+            { id: 1, name: "연습실 하트", image: "image_1.png", score: 1000 },
+            { id: 2, name: "만두", image: "image_2.png", score: 1000 },
+            { id: 3, name: "스타즈 베이커리", image: "image_3.png", score: 1000 },
+            { id: 4, name: "댜니 생일", image: "image_4.png", score: 1000 },
+            { id: 5, name: "영화관 데이트", image: "image_5.png", score: 1000 },
+            { id: 6, name: "나 지우 옆에 갈래", image: "image_6.png", score: 1000 },
+            { id: 7, name: "에버랜드", image: "image_7.png", score: 1000 },
+            { id: 8, name: "스텔라는 저 좋아해요", image: "image_8.png", score: 1000 },
+            { id: 9, name: "커플 목걸이", image: "image_9.png", score: 1000 },
+            { id: 10, name: "어메이징 플러팅 실력", image: "image_10.png", score: 1000 },
+            { id: 11, name: "러브버그", image: "image_11.png", score: 1000 },
+            { id: 12, name: "더 자주 붙어 있도록 하세요", image: "image_12.png", score: 1000 },
+            { id: 13, name: "집착을 너무 심하게 하거든요", image: "image_13.png", score: 1000 },
+            { id: 14, name: "다현이 사랑해라고 해봐", image: "image_14.png", score: 1000 },
+            { id: 15, name: "뒷댠닺", image: "image_15.png", score: 1000 },
+            { id: 16, name: "귀여워", image: "image_16.png", score: 1000 },
+            { id: 17, name: "무릎", image: "image_17.png", score: 1000 },
+            { id: 18, name: "자기야", image: "image_18.png", score: 1000 },
+            { id: 19, name: "골져스 새침데기 플러팅", image: "image_19.png", score: 1000 },
+            { id: 20, name: "아웅다웅", image: "image_20.png", score: 1000 },
+            { id: 21, name: "손 만지작", image: "image_21.png", score: 1000 },
+            { id: 22, name: "갸루", image: "image_22.png", score: 1000 },
+            { id: 23, name: "애기", image: "image_23.png", score: 1000 },
+            { id: 24, name: "런닝맨 댠닺", image: "image_24.png", score: 1000 },
+            { id: 25, name: "루드 뽀뽀", image: "image_25.png", score: 1000 },
+            { id: 26, name: "하뀨하 뽀뽀", image: "image_26.png", score: 1000 },
+            { id: 27, name: "지우야 사랑해", image: "image_27.png", score: 1000 },
+            { id: 28, name: "은근슬쩍 최지우", image: "image_28.png", score: 1000 },
+            { id: 29, name: "꼰듀 귀요미", image: "image_29.png", score: 1000 },
+            { id: 30, name: "지우 하고싶어요?", image: "image_30.png", score: 1000 },
+            { id: 31, name: "애기 조용", image: "image_31.png", score: 1000 },
+            { id: 32, name: "뽀뽀해", image: "image_32.png", score: 1000 }
+        ];
 
         let items = [];
         let currentRound = 1;
         const maxRounds = 20;
         let historyStack = [];
-        let currentChoices = [];       // 현재 라운드의 선택지 목록
-        let lastSelectedId = null;     // 직전에 골랐던 항목의 ID 기억용
+        let currentChoices = [];
+        let lastSelectedId = null;
 
         function startGame() {
             items = rawItems.map(item => ({ ...item, score: 1000 }));
@@ -447,7 +472,6 @@
                 backBtn.classList.add('hidden');
             }
 
-            // 이전으로 돌아온 경우 저장된 선택지와 선택했던 항목 ID를 그대로 복원
             if (restoredChoices) {
                 currentChoices = restoredChoices;
                 lastSelectedId = restoredSelectedId;
@@ -464,7 +488,6 @@
                 let card = document.createElement('div');
                 card.className = 'choice-card';
                 
-                // 만약 이전에 이 카드를 골랐던 기록이 있다면 파란색 상태 유지 클래스 부여
                 if (lastSelectedId === item.id) {
                     card.classList.add('selected');
                 }
@@ -484,11 +507,9 @@
         }
 
         function selectChoice(selected, group, cardElement) {
-            // 모든 카드에서 선택 효과 임시 제거 후 클릭한 카드에만 부여
             document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
             cardElement.classList.add('selected');
 
-            // 현재 상태와 선택했던 항목의 ID를 히스토리에 함께 백업
             historyStack.push({
                 itemsState: items.map(i => ({ ...i })),
                 round: currentRound,
@@ -496,7 +517,6 @@
                 selectedId: selected.id
             });
 
-            // 점수 알고리즘 반영
             selected.score += 40;
             group.forEach(item => {
                 if (item.id !== selected.id) {
@@ -506,7 +526,6 @@
 
             currentRound++;
 
-            // 파란색 상태를 잠시 보여준 뒤 다음 라운드로 전환
             setTimeout(() => {
                 nextRound();
             }, 250);
@@ -515,7 +534,6 @@
         function goBack() {
             if (historyStack.length === 0) return;
 
-            // 직전 상태로 복원 (선택지 구성과 골랐던 항목 ID까지 완벽 복원)
             const lastState = historyStack.pop();
             items = lastState.itemsState;
             currentRound = lastState.round;
