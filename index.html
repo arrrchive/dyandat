@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>댠닺 떡밥 9선</title>
-    <!-- 캡처 라이브러리는 더 이상 필요 없지만 호환성을 위해 남겨둡니다 -->
+    <!-- 캡처를 위한 html2canvas 라이브러리 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
@@ -200,6 +200,7 @@
             text-overflow: ellipsis;
         }
 
+        /* 게임 화면 하단 영역 (뒤로 가기 버튼 배치용) */
         .game-footer {
             width: 100%;
             display: flex;
@@ -229,7 +230,7 @@
         .result-container {
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             background-color: rgba(255, 250, 242, 0.96);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -314,18 +315,16 @@
             width: 100%;
         }
 
-        /* 다시 하기 버튼 컨테이너 (버튼을 크기 그대로 유지하며 아래로 내림) */
         .result-btn-group {
             width: 100%;
             max-width: 400px;
             display: flex;
-            justify-content: center;
-            padding-top: 12px; /* 아래쪽 여백 확보를 위해 패딩 추가 */
+            gap: 8px;
         }
 
         .sub-action-btn {
-            width: 50%; /* 버튼 크기를 적당히 유지 */
-            background-color: rgba(235, 225, 215, 0.9);
+            flex: 1;
+            background-color: rgba(235, 225, 215, 0.8);
             color: #2b1d18;
             border: none;
             padding: 12px 0;
@@ -335,6 +334,11 @@
             border-radius: 9999px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .sub-action-btn.primary {
+            background-color: #2b1d18;
+            color: #ffffff;
         }
 
         .sub-action-btn:active {
@@ -369,6 +373,7 @@
 
         <div class="choice-grid" id="choices-box"></div>
         
+        <!-- 뒤로 가기 버튼 영역 -->
         <div class="game-footer">
             <button id="back-btn" class="back-btn hidden" onclick="goBack()">← 이전으로</button>
         </div>
@@ -383,6 +388,7 @@
         
         <div class="result-btn-group">
             <button class="sub-action-btn" onclick="resetGame()">다시 하기</button>
+            <button class="sub-action-btn primary" onclick="saveResultImage()">사진 저장하기</button>
         </div>
     </div>
 
@@ -398,7 +404,7 @@
         let items = [];
         let currentRound = 1;
         const maxRounds = 20;
-        let historyStack = [];
+        let historyStack = []; // 이전 시행 기록(상태 백업용)
 
         function startGame() {
             items = rawItems.map(item => ({ ...item, score: 1000 }));
@@ -420,6 +426,7 @@
             document.getElementById('progress-text').innerText = `${percent}%`;
             document.getElementById('progress-fill').style.width = `${percent}%`;
 
+            // 2라운드부터 뒤로 가기 버튼 활성화
             const backBtn = document.getElementById('back-btn');
             if (currentRound > 1) {
                 backBtn.classList.remove('hidden');
@@ -451,11 +458,13 @@
         }
 
         function selectChoice(selected, group) {
+            // 현재 상태와 점수를 히스토리에 백업 (깊은 복사)
             historyStack.push({
                 itemsState: items.map(i => ({ ...i })),
                 round: currentRound
             });
 
+            // 점수 알고리즘 반영
             selected.score += 40;
             group.forEach(item => {
                 if (item.id !== selected.id) {
@@ -470,6 +479,7 @@
         function goBack() {
             if (historyStack.length === 0) return;
 
+            // 직전 상태로 복원
             const lastState = historyStack.pop();
             items = lastState.itemsState;
             currentRound = lastState.round;
@@ -505,6 +515,38 @@
         function resetGame() {
             document.getElementById('result-screen').classList.add('hidden');
             document.getElementById('start-screen').classList.remove('hidden');
+        }
+
+        function saveResultImage() {
+            const target = document.getElementById('capture-target');
+            
+            html2canvas(target, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: false,
+                backgroundColor: '#fffaf2'
+            }).then(canvas => {
+                const dataUrl = canvas.toDataURL('image/png');
+                const newWindow = window.open();
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <html>
+                            <head><title>댠닺 떡밥 9선 결과 저장</title></head>
+                            <body style="margin:0; background:#333; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;">
+                                <p style="color:white; font-family:sans-serif; margin-bottom:12px; font-size:14px;">👇 이미지를 길게 눌러 저장하세요!</p>
+                                <img src="${dataUrl}" style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.5);" />
+                            </body>
+                        </html>
+                    `);
+                } else {
+                    const link = document.createElement('a');
+                    link.download = '댠닺_떡밥_9선_결과.png';
+                    link.href = dataUrl;
+                    link.click();
+                }
+            }).catch(() => {
+                alert('이미지 생성 중 오류가 발생했습니다. Raw 이미지 주소가 올바른지 확인해 주세요.');
+            });
         }
     </script>
 </body>
