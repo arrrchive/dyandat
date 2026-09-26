@@ -15,6 +15,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
+            /* 배경화면은 원래 쓰시던 image.png로 고정 */
             background-image: url('image.png');
             background-size: cover;
             background-position: center center;
@@ -400,40 +401,40 @@
     </div>
 
     <script>
-        /* 32개의 전체 떡밥 데이터 및 파일 매칭 (1번은 image.png, 2~32번은 image_2~32.png) */
+        /* 32개의 떡밥 데이터 (선택지 및 결과는 1.jpg ~ 32.jpg 매칭) */
         const rawItems = [
-            { id: 1, name: "연습실 하트", image: "image.png", score: 1000 },
-            { id: 2, name: "만두", image: "image_2.png", score: 1000 },
-            { id: 3, name: "스타즈 베이커리", image: "image_3.png", score: 1000 },
-            { id: 4, name: "댜니 생일", image: "image_4.png", score: 1000 },
-            { id: 5, name: "영화관 데이트", image: "image_5.png", score: 1000 },
-            { id: 6, name: "나 지우 옆에 갈래", image: "image_6.png", score: 1000 },
-            { id: 7, name: "에버랜드", image: "image_7.png", score: 1000 },
-            { id: 8, name: "스텔라는 저 좋아해요", image: "image_8.png", score: 1000 },
-            { id: 9, name: "커플 목걸이", image: "image_9.png", score: 1000 },
-            { id: 10, name: "어메이징 플러팅 실력", image: "image_10.png", score: 1000 },
-            { id: 11, name: "러브버그", image: "image_11.png", score: 1000 },
-            { id: 12, name: "더 자주 붙어 있도록 하세요", image: "image_12.png", score: 1000 },
-            { id: 13, name: "집착을 너무 심하게 하거든요", image: "image_13.png", score: 1000 },
-            { id: 14, name: "다현이 사랑해라고 해봐", image: "image_14.png", score: 1000 },
-            { id: 15, name: "뒷댠닺", image: "image_15.png", score: 1000 },
-            { id: 16, name: "귀여워", image: "image_16.png", score: 1000 },
-            { id: 17, name: "무릎", image: "image_17.png", score: 1000 },
-            { id: 18, name: "자기야", image: "image_18.png", score: 1000 },
-            { id: 19, name: "골져스 새침데기 플러팅", image: "image_19.png", score: 1000 },
-            { id: 20, name: "아웅다웅", image: "image_20.png", score: 1000 },
-            { id: 21, name: "손 만지작", image: "image_21.png", score: 1000 },
-            { id: 22, name: "갸루", image: "image_22.png", score: 1000 },
-            { id: 23, name: "애기", image: "image_23.png", score: 1000 },
-            { id: 24, name: "런닝맨 댠닺", image: "image_24.png", score: 1000 },
-            { id: 25, name: "루드 뽀뽀", image: "image_25.png", score: 1000 },
-            { id: 26, name: "하뀨하 뽀뽀", image: "image_26.png", score: 1000 },
-            { id: 27, name: "지우야 사랑해", image: "image_27.png", score: 1000 },
-            { id: 28, name: "은근슬쩍 최지우", image: "image_28.png", score: 1000 },
-            { id: 29, name: "꼰듀 귀요미", image: "image_29.png", score: 1000 },
-            { id: 30, name: "지우 하고싶어요?", image: "image_30.png", score: 1000 },
-            { id: 31, name: "애기 조용", image: "image_31.png", score: 1000 },
-            { id: 32, name: "뽀뽀해", image: "image_32.png", score: 1000 }
+            { id: 1, name: "연습실 하트", image: "1.jpg", score: 1000 },
+            { id: 2, name: "만두", image: "2.jpg", score: 1000 },
+            { id: 3, name: "스타즈 베이커리", image: "3.jpg", score: 1000 },
+            { id: 4, name: "댜니 생일", image: "4.jpg", score: 1000 },
+            { id: 5, name: "영화관 데이트", image: "5.jpg", score: 1000 },
+            { id: 6, name: "나 지우 옆에 갈래", image: "6.jpg", score: 1000 },
+            { id: 7, name: "에버랜드", image: "7.jpg", score: 1000 },
+            { id: 8, name: "스텔라는 저 좋아해요", image: "8.jpg", score: 1000 },
+            { id: 9, name: "커플 목걸이", image: "9.jpg", score: 1000 },
+            { id: 10, name: "어메이징 플러팅 실력", image: "10.jpg", score: 1000 },
+            { id: 11, name: "러브버그", image: "11.jpg", score: 1000 },
+            { id: 12, name: "더 자주 붙어 있도록 하세요", image: "12.jpg", score: 1000 },
+            { id: 13, name: "집착을 너무 심하게 하거든요", image: "13.jpg", score: 1000 },
+            { id: 14, name: "다현이 사랑해라고 해봐", image: "14.jpg", score: 1000 },
+            { id: 15, name: "뒷댠닺", image: "15.jpg", score: 1000 },
+            { id: 16, name: "귀여워", image: "16.jpg", score: 1000 },
+            { id: 17, name: "무릎", image: "17.jpg", score: 1000 },
+            { id: 18, name: "자기야", image: "18.jpg", score: 1000 },
+            { id: 19, name: "골져스 새침데기 플러팅", image: "19.jpg", score: 1000 },
+            { id: 20, name: "아웅다웅", image: "20.jpg", score: 1000 },
+            { id: 21, name: "손 만지작", image: "21.jpg", score: 1000 },
+            { id: 22, name: "갸루", image: "22.jpg", score: 1000 },
+            { id: 23, name: "애기", image: "23.jpg", score: 1000 },
+            { id: 24, name: "런닝맨 댠닺", image: "24.jpg", score: 1000 },
+            { id: 25, name: "루드 뽀뽀", image: "25.jpg", score: 1000 },
+            { id: 26, name: "하뀨하 뽀뽀", image: "26.jpg", score: 1000 },
+            { id: 27, name: "지우야 사랑해", image: "27.jpg", score: 1000 },
+            { id: 28, name: "은근슬쩍 최지우", image: "28.jpg", score: 1000 },
+            { id: 29, name: "꼰듀 귀요미", image: "29.jpg", score: 1000 },
+            { id: 30, name: "지우 하고싶어요?", image: "30.jpg", score: 1000 },
+            { id: 31, name: "애기 조용", image: "31.jpg", score: 1000 },
+            { id: 32, name: "뽀뽀해", image: "32.jpg", score: 1000 }
         ];
 
         let items = [];
@@ -573,6 +574,7 @@
 
         function resetGame() {
             document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.add('hidden'); // 방어 코드
             document.getElementById('start-screen').classList.remove('hidden');
         }
     </script>
