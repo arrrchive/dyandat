@@ -47,40 +47,34 @@
             display: none !important;
         }
 
-        /* 1. 시작 화면 (박스 배경 및 테두리를 완전히 없애고 배경 사진 위에 글씨와 버튼만 배치) */
+        /* 1. 시작 화면 (원하시던 전체 반투명 블러 배경 스타일) */
         .start-container {
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             text-align: center;
-            background: transparent;
-            padding: 24px 20px;
-        }
-
-        .start-card-box {
-            width: 100%;
-            max-width: 340px;
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-image: url('image.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #2b1d18;
+            padding-top: 80px;
+            padding-bottom: 40px;
         }
 
         .start-header {
             width: 100%;
-            margin-bottom: 32px;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 800;
             color: #2b1d18;
             margin: 0;
             letter-spacing: -0.03em;
-            text-shadow: 0 2px 12px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         h1 .highlight {
@@ -107,9 +101,10 @@
 
         .main-btn {
             width: 100%;
-            max-width: 200px;
+            max-width: 220px;
             padding: 14px 0;
             font-size: 1rem;
+            margin-bottom: 20px;
         }
 
         /* 2. 게임 화면 */
@@ -356,12 +351,11 @@
 
     <!-- 1. 시작 화면 -->
     <div id="start-screen" class="screen start-container">
-        <div class="start-card-box">
-            <div class="start-header">
-                <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
-            </div>
-            <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
+        <div class="start-header">
+            <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
         </div>
+        <div></div>
+        <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
     </div>
 
     <!-- 2. 게임 화면 -->
