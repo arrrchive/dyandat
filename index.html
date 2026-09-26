@@ -237,12 +237,12 @@
             background-color: rgba(255, 250, 242, 0.96);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            padding: 12px 6px;
+            padding: 12px 8px;
         }
 
         .result-content-wrapper {
             width: 100%;
-            max-width: 420px;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -253,7 +253,7 @@
             font-weight: 800;
             color: #2b1d18;
             text-align: center;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .result-title-main .highlight {
@@ -263,30 +263,30 @@
         .result-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 5px; /* 간격을 살짝 줄여서 꽉 차게 조절 */
+            gap: 8px;
             width: 100%;
         }
 
+        /* 큰 박스를 제거하고 순수하게 사진과 텍스트만 배치 */
         .result-card {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 12px;
-            padding: 4px 2px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
         }
 
-        /* 결과창 사진 비율을 살짝 넓은 직사각형(4:5 비율)으로 조정하여 가로를 넓힘 */
+        /* 결과창 사진 비율 (참고 이미지와 유사한 세로형 3:4 비율) */
         .result-img-wrap {
             width: 100%;
-            aspect-ratio: 4 / 5;
-            border-radius: 8px;
+            aspect-ratio: 3 / 4;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            margin-bottom: 3px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            margin-bottom: 4px;
             background: #ffffff;
         }
 
@@ -298,15 +298,15 @@
 
         .result-rank {
             position: absolute;
-            top: 3px;
-            left: 3px;
+            top: 4px;
+            left: 4px;
             background-color: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             color: white;
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             font-weight: 700;
-            padding: 2px 5px;
-            border-radius: 5px;
+            padding: 2px 6px;
+            border-radius: 6px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.3);
             z-index: 2;
         }
@@ -316,14 +316,16 @@
             color: white;
         }
 
+        /* 사진 바로 아래에 위치하는 깔끔한 제목 */
         .result-name {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: #2b1d18;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             width: 100%;
+            padding: 0 2px;
         }
 
         .result-btn-group {
@@ -331,7 +333,7 @@
             max-width: 400px;
             display: flex;
             justify-content: center;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
         }
 
         .sub-action-btn {
