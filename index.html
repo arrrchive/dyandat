@@ -426,11 +426,12 @@
 
         let items = [];
         let currentRound = 1;
-        const maxRounds = 40; // 40라운드로 확장
+        const maxRounds = 40; // 40라운드로 설정
         let historyStack = [];
         let currentChoices = [];
         let lastSelectedId = null;
         let shuffledQueue = [];
+        let lastChoices = null;
 
         function startGame() {
             items = rawItems.map(item => ({ ...item, score: 1000 }));
@@ -438,8 +439,8 @@
             historyStack = [];
             currentChoices = [];
             lastSelectedId = null;
+            lastChoices = null;
             
-            // 40라운드 동안 모든 아이템이 골고루 등장할 수 있도록 큐 생성 (32개를 기본으로 섞고 남은 8개는 무작위 추가)
             let base = [...items].sort(() => 0.5 - Math.random());
             let extra = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
             shuffledQueue = [...base, ...extra];
@@ -449,7 +450,7 @@
             nextRound();
         }
 
-        function nextRound(restoredChoices = null, restoredSelectedId = null) {
+        function nextRound(restoredChoices = null, restoredSelectedId = null, restoredLastChoices = null) {
             if (currentRound > maxRounds) {
                 endGame();
                 return;
@@ -469,12 +470,25 @@
             if (restoredChoices) {
                 currentChoices = restoredChoices;
                 lastSelectedId = restoredSelectedId;
+                lastChoices = restoredLastChoices;
             } else {
                 let targetItem = shuffledQueue[currentRound - 1];
                 let others = items.filter(i => i.id !== targetItem.id).sort(() => 0.5 - Math.random()).slice(0, 3);
                 
-                // 선택된 4개 아이템의 화면 내 위치(인덱스)가 매번 무작위로 섞이도록 처리
-                currentChoices = [targetItem, ...others].sort(() => 0.5 - Math.random());
+                let newChoices = [targetItem, ...others];
+
+                // 직전 라운드와 같은 위치(인덱스)에 동일한 카드가 연속으로 배치되지 않도록 교정
+                if (lastChoices && lastChoices.length === 4) {
+                    let attempts = 0;
+                    while (attempts < 50) {
+                        newChoices.sort(() => 0.5 - Math.random());
+                        let hasOverlap = newChoices.some((item, idx) => item.id === lastChoices[idx].id);
+                        if (!hasOverlap) break;
+                        attempts++;
+                    }
+                }
+
+                currentChoices = newChoices;
                 lastSelectedId = null;
             }
 
@@ -512,8 +526,11 @@
                 round: currentRound,
                 choices: [...currentChoices],
                 selectedId: selected.id,
-                queueState: [...shuffledQueue]
+                queueState: [...shuffledQueue],
+                savedLastChoices: lastChoices ? [...lastChoices] : null
             });
+
+            lastChoices = [...currentChoices];
 
             selected.score += 40;
             group.forEach(item => {
@@ -537,7 +554,7 @@
             currentRound = lastState.round;
             shuffledQueue = lastState.queueState;
 
-            nextRound(lastState.choices, lastState.selectedId);
+            nextRound(lastState.choices, lastState.selectedId, lastState.savedLastChoices);
         }
 
         function endGame() {
