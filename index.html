@@ -187,6 +187,7 @@
         .card-info {
             padding: 10px 8px;
             text-align: center;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .card-name {
@@ -196,6 +197,15 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        /* 선택된 상태 유지 스타일 */
+        .choice-card.selected .card-info {
+            background-color: #007AFF;
+        }
+
+        .choice-card.selected .card-name {
+            color: #ffffff;
         }
 
         .game-footer {
@@ -286,7 +296,6 @@
             object-fit: cover;
         }
 
-        /* 기본 순위 배지 박스 스타일 (2위~9위) */
         .result-rank {
             position: absolute;
             top: 2px;
@@ -301,7 +310,6 @@
             z-index: 2;
         }
 
-        /* 1위 글씨 박스 전용 스타일 (배경색 변경: 예쁜 골드/오렌지 포인트 톤) */
         .result-rank.rank-1-badge {
             background-color: #FF8800;
             color: white;
@@ -407,18 +415,22 @@
         let currentRound = 1;
         const maxRounds = 20;
         let historyStack = [];
+        let currentChoices = [];       // 현재 라운드의 선택지 목록
+        let lastSelectedId = null;     // 직전에 골랐던 항목의 ID 기억용
 
         function startGame() {
             items = rawItems.map(item => ({ ...item, score: 1000 }));
             currentRound = 1;
             historyStack = [];
+            currentChoices = [];
+            lastSelectedId = null;
             
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('game-screen').classList.remove('hidden');
             nextRound();
         }
 
-        function nextRound() {
+        function nextRound(restoredChoices = null, restoredSelectedId = null) {
             if (currentRound > maxRounds) {
                 endGame();
                 return;
@@ -435,8 +447,15 @@
                 backBtn.classList.add('hidden');
             }
 
-            let shuffled = [...items].sort(() => 0.5 - Math.random());
-            let currentChoices = shuffled.slice(0, 4);
+            // 이전으로 돌아온 경우 저장된 선택지와 선택했던 항목 ID를 그대로 복원
+            if (restoredChoices) {
+                currentChoices = restoredChoices;
+                lastSelectedId = restoredSelectedId;
+            } else {
+                let shuffled = [...items].sort(() => 0.5 - Math.random());
+                currentChoices = shuffled.slice(0, 4);
+                lastSelectedId = null;
+            }
 
             let box = document.getElementById('choices-box');
             box.innerHTML = '';
@@ -444,7 +463,13 @@
             currentChoices.forEach(item => {
                 let card = document.createElement('div');
                 card.className = 'choice-card';
-                card.onclick = () => selectChoice(item, currentChoices);
+                
+                // 만약 이전에 이 카드를 골랐던 기록이 있다면 파란색 상태 유지 클래스 부여
+                if (lastSelectedId === item.id) {
+                    card.classList.add('selected');
+                }
+
+                card.onclick = (e) => selectChoice(item, currentChoices, card);
                 
                 card.innerHTML = `
                     <div class="card-img-wrap">
@@ -458,12 +483,20 @@
             });
         }
 
-        function selectChoice(selected, group) {
+        function selectChoice(selected, group, cardElement) {
+            // 모든 카드에서 선택 효과 임시 제거 후 클릭한 카드에만 부여
+            document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+            cardElement.classList.add('selected');
+
+            // 현재 상태와 선택했던 항목의 ID를 히스토리에 함께 백업
             historyStack.push({
                 itemsState: items.map(i => ({ ...i })),
-                round: currentRound
+                round: currentRound,
+                choices: [...currentChoices],
+                selectedId: selected.id
             });
 
+            // 점수 알고리즘 반영
             selected.score += 40;
             group.forEach(item => {
                 if (item.id !== selected.id) {
@@ -472,17 +505,22 @@
             });
 
             currentRound++;
-            nextRound();
+
+            // 파란색 상태를 잠시 보여준 뒤 다음 라운드로 전환
+            setTimeout(() => {
+                nextRound();
+            }, 250);
         }
 
         function goBack() {
             if (historyStack.length === 0) return;
 
+            // 직전 상태로 복원 (선택지 구성과 골랐던 항목 ID까지 완벽 복원)
             const lastState = historyStack.pop();
             items = lastState.itemsState;
             currentRound = lastState.round;
 
-            nextRound();
+            nextRound(lastState.choices, lastState.selectedId);
         }
 
         function endGame() {
