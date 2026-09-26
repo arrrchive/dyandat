@@ -39,7 +39,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px 12px;
+            padding: 20px 16px;
             overflow-y: auto;
         }
 
@@ -60,8 +60,8 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             color: #2b1d18;
-            padding-top: 60px;
-            padding-bottom: 60px;
+            padding-top: 80px;
+            padding-bottom: 40px;
         }
 
         .start-header {
@@ -81,24 +81,26 @@
             color: #FF3366;
         }
 
+        /* 시작하기 버튼을 아래로 배치하고 파스텔톤 배경 적용 */
         .main-btn {
             width: 100%;
-            max-width: 200px;
-            background-color: #2b1d18;
-            color: #ffffff;
+            max-width: 220px;
+            background-color: #ffd1dc;
+            color: #5c3a41;
             border: none;
             padding: 14px 0;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             border-radius: 9999px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             transition: transform 0.1s ease, background-color 0.2s ease;
+            margin-bottom: 20px;
         }
 
         .main-btn:active {
             transform: scale(0.98);
-            background-color: #432e26;
+            background-color: #f8bbc7;
         }
 
         /* 2. 게임 화면 */
@@ -168,7 +170,6 @@
             transform: scale(0.96);
         }
 
-        /* 순수하게 사진 영역만 3:4 비율 적용 */
         .card-img-wrap {
             width: 100%;
             aspect-ratio: 3 / 4;
@@ -182,7 +183,6 @@
             object-fit: cover;
         }
 
-        /* 아래 제목 박스 비율은 건드리지 않고 연한 회색 유지 */
         .card-info {
             padding: 6px 4px;
             text-align: center;
@@ -361,11 +361,10 @@
     <!-- 1. 시작 화면 -->
     <div id="start-screen" class="screen start-container">
         <div class="start-header">
-            <h1>댠닺 떡밥 <span class="highlight">9</span>선</h1>
+            <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
         </div>
         <div></div>
         <button class="main-btn" onclick="startGame()">시작하기</button>
-        <div></div>
     </div>
 
     <!-- 2. 게임 화면 -->
@@ -393,7 +392,7 @@
         <div></div>
         
         <div class="result-content-wrapper">
-            <div class="result-title-main">좋아하는 댠닺 떡밥 <span class="highlight">9</span>선</div>
+            <div class="result-title-main">좋아하는 댠닺 떡밥 <span class="highlight">9선</span></div>
             <div class="result-grid" id="result-box"></div>
         </div>
         
