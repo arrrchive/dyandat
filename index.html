@@ -426,7 +426,7 @@
 
         let items = [];
         let currentRound = 1;
-        const maxRounds = 40; // 40라운드로 설정
+        const maxRounds = 40;
         let historyStack = [];
         let currentChoices = [];
         let lastSelectedId = null;
@@ -477,7 +477,6 @@
                 
                 let newChoices = [targetItem, ...others];
 
-                // 직전 라운드와 같은 위치(인덱스)에 동일한 카드가 연속으로 배치되지 않도록 교정
                 if (lastChoices && lastChoices.length === 4) {
                     let attempts = 0;
                     while (attempts < 50) {
@@ -505,9 +504,12 @@
 
                 card.onclick = (e) => selectChoice(item, currentChoices, card);
                 
+                // 9번 사진(id === 9)인 경우만 object-fit을 contain으로 적용하여 잘림 방지
+                let imgStyle = item.id === 9 ? 'object-fit: contain; background-color: #f4f4f4;' : '';
+                
                 card.innerHTML = `
                     <div class="card-img-wrap">
-                        <img src="${item.image}" alt="${item.name}">
+                        <img src="${item.image}" alt="${item.name}" style="${imgStyle}">
                     </div>
                     <div class="card-info">
                         <div class="card-name">${item.name}</div>
@@ -576,10 +578,13 @@
                 let card = document.createElement('div');
                 card.className = 'result-card';
                 
+                // 결과 화면에서도 9번 사진(id === 9)은 잘리지 않도록 적용
+                let resultImgStyle = item.id === 9 ? 'object-fit: contain; background-color: #f4f4f4;' : '';
+
                 card.innerHTML = `
                     <div class="result-img-wrap">
                         <div class="result-rank ${actualRank === 1 ? 'rank-1-badge' : ''}">${actualRank}위</div>
-                        <img src="${item.image}" alt="${item.name}">
+                        <img src="${item.image}" alt="${item.name}" style="${resultImgStyle}">
                     </div>
                     <div class="result-name">${item.name}</div>
                 `;
