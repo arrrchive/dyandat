@@ -15,7 +15,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            /* 배경화면은 원래 쓰시던 image.png로 고정 */
             background-image: url('image.png');
             background-size: cover;
             background-position: center center;
@@ -401,7 +400,7 @@
     </div>
 
     <script>
-        /* 32개의 떡밥 데이터 (선택지 및 결과는 1.jpg ~ 32.jpg 매칭) */
+        /* 32개의 떡밥 데이터 및 파일 매칭 완벽 정리 */
         const rawItems = [
             { id: 1, name: "연습실 하트", image: "1.jpg", score: 1000 },
             { id: 2, name: "만두", image: "2.jpg", score: 1000 },
@@ -497,7 +496,7 @@
                 
                 card.innerHTML = `
                     <div class="card-img-wrap">
-                        <img src="${item.image}" crossorigin="anonymous" alt="${item.name}">
+                        <img src="${item.image}" alt="${item.name}">
                     </div>
                     <div class="card-info">
                         <div class="card-name">${item.name}</div>
@@ -564,7 +563,7 @@
                 card.innerHTML = `
                     <div class="result-img-wrap">
                         <div class="result-rank ${actualRank === 1 ? 'rank-1-badge' : ''}">${actualRank}위</div>
-                        <img src="${item.image}" crossorigin="anonymous" alt="${item.name}">
+                        <img src="${item.image}" alt="${item.name}">
                     </div>
                     <div class="result-name">${item.name}</div>
                 `;
@@ -574,7 +573,6 @@
 
         function resetGame() {
             document.getElementById('result-screen').classList.add('hidden');
-            document.getElementById('start-screen').classList.add('hidden'); // 방어 코드
             document.getElementById('start-screen').classList.remove('hidden');
         }
     </script>
