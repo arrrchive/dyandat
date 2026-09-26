@@ -175,7 +175,7 @@
 
         .card-img-wrap {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 4 / 3; /* 게임 선택창도 사진 비율에 맞게 조정 */
             background-color: #f8f2eb;
             overflow: hidden;
         }
@@ -200,7 +200,7 @@
             text-overflow: ellipsis;
         }
 
-        /* 3. 결과 화면 (여백 대칭 및 수직 중앙 완벽 정렬) */
+        /* 3. 결과 화면 (사진 비율 4:3 적용 및 여백 대칭) */
         .result-container {
             justify-content: center;
             align-items: center;
@@ -248,9 +248,10 @@
             text-align: center;
         }
 
+        /* 사진이 찌그러지지 않도록 4:3 가로형 비율 적용 */
         .result-img-wrap {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 4 / 3; 
             border-radius: 10px;
             overflow: hidden;
             position: relative;
@@ -311,6 +312,7 @@
         }
 
         .sub-action-btn.primary {
+            background-icon: #2b1d18;
             background-color: #2b1d18;
             color: #ffffff;
         }
@@ -468,7 +470,6 @@
                 allowTaint: false,
                 backgroundColor: '#fffaf2'
             }).then(canvas => {
-                // 모바일 환경에서 다운로드가 막힐 경우 새 창으로 이미지 띄우기 (길게 눌러 저장 가능)
                 const dataUrl = canvas.toDataURL('image/png');
                 const newWindow = window.open();
                 if (newWindow) {
