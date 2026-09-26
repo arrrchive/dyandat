@@ -42,7 +42,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 16px 12px;
+            padding: 12px 10px;
             overflow-y: auto;
         }
 
@@ -115,7 +115,7 @@
 
         .progress-section {
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .progress-text {
@@ -123,7 +123,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             color: #666666;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .progress-bar-bg {
@@ -146,7 +146,7 @@
             font-weight: 700;
             color: #2b1d18;
             text-align: center;
-            margin: 10px 0;
+            margin: 8px 0;
             letter-spacing: -0.02em;
         }
 
@@ -200,22 +200,23 @@
             text-overflow: ellipsis;
         }
 
-        /* 3. 결과 화면 (위아래 대칭 여백 및 수직 중앙 정렬 조정) */
+        /* 3. 결과 화면 (여백 대칭 및 수직 중앙 완벽 정렬) */
         .result-container {
-            justify-content: center; /* 수직 방향 정중앙 정렬 */
-            gap: 12px;               /* 타이틀과 묶음, 버튼 사이의 일정한 간격 */
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
             background-color: rgba(255, 250, 242, 0.96);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            padding: 16px 10px;
+            padding: 10px 8px;
         }
 
         .result-title-main {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: #2b1d18;
             text-align: center;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .result-title-main .highlight {
@@ -224,9 +225,10 @@
 
         .capture-area {
             background-color: rgba(255, 250, 242, 1);
-            padding: 8px 6px;
+            padding: 6px;
             border-radius: 14px;
             width: 100%;
+            max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -237,7 +239,6 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             width: 100%;
-            margin-top: 6px;
         }
 
         .result-card {
@@ -290,6 +291,7 @@
 
         .result-btn-group {
             width: 100%;
+            max-width: 400px;
             display: flex;
             gap: 8px;
         }
@@ -466,33 +468,28 @@
                 allowTaint: false,
                 backgroundColor: '#fffaf2'
             }).then(canvas => {
-                canvas.toBlob(blob => {
-                    if (!blob) {
-                        fallbackDownload(canvas);
-                        return;
-                    }
-                    const file = new File([blob], '댠닺_떡밥_9선_결과.png', { type: 'image/png' });
-                    
-                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        navigator.share({
-                            files: [file],
-                            title: '댠닺 떡밥 9선 결과',
-                            text: '내가 고른 댠닺 떡밥 9선 결과입니다!'
-                        }).catch(() => {});
-                    } else {
-                        fallbackDownload(canvas);
-                    }
-                }, 'image/png');
+                // 모바일 환경에서 다운로드가 막힐 경우 새 창으로 이미지 띄우기 (길게 눌러 저장 가능)
+                const dataUrl = canvas.toDataURL('image/png');
+                const newWindow = window.open();
+                if (newWindow) {
+                    newWindow.document.write(`
+                        <html>
+                            <head><title>댠닺 떡밥 9선 결과 저장</title></head>
+                            <body style="margin:0; background:#333; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;">
+                                <p style="color:white; font-family:sans-serif; margin-bottom:12px; font-size:14px;">👇 이미지를 길게 눌러 저장하세요!</p>
+                                <img src="${dataUrl}" style="max-width:100%; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.5);" />
+                            </body>
+                        </html>
+                    `);
+                } else {
+                    const link = document.createElement('a');
+                    link.download = '댠닺_떡밥_9선_결과.png';
+                    link.href = dataUrl;
+                    link.click();
+                }
             }).catch(() => {
-                alert('모바일 브라우저 보안 정책으로 자동 저장이 어려울 수 있습니다. 결과 화면을 캡처해서 사용해 보세요!');
+                alert('이미지 생성 중 오류가 발생했습니다. Raw 이미지 주소가 올바른지 확인해 주세요.');
             });
-        }
-
-        function fallbackDownload(canvas) {
-            const link = document.createElement('a');
-            link.download = '댠닺_떡밥_9선_결과.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
         }
     </script>
 </body>
