@@ -150,7 +150,7 @@
             width: 100%;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
             margin: auto 0;
         }
 
@@ -169,9 +169,10 @@
             transform: scale(0.96);
         }
 
+        /* 선택창 사진의 세로를 조금 더 늘림 (4:3 -> 3:4 비율로 변경) */
         .card-img-wrap {
             width: 100%;
-            aspect-ratio: 4 / 3;
+            aspect-ratio: 3 / 4;
             background-color: #f8f2eb;
             overflow: hidden;
         }
@@ -237,7 +238,7 @@
             background-color: rgba(255, 250, 242, 0.96);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            padding: 12px 8px;
+            padding: 10px 8px;
         }
 
         .result-content-wrapper {
@@ -253,7 +254,7 @@
             font-weight: 800;
             color: #2b1d18;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .result-title-main .highlight {
@@ -267,7 +268,6 @@
             width: 100%;
         }
 
-        /* 큰 박스를 제거하고 순수하게 사진과 텍스트만 배치 */
         .result-card {
             display: flex;
             flex-direction: column;
@@ -278,15 +278,15 @@
             box-shadow: none;
         }
 
-        /* 결과창 사진 비율 (참고 이미지와 유사한 세로형 3:4 비율) */
+        /* 결과창 사진 세로를 더 줄임 (1:1 정사각형에 가깝게 조절) */
         .result-img-wrap {
             width: 100%;
-            aspect-ratio: 3 / 4;
-            border-radius: 12px;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-            margin-bottom: 4px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            margin-bottom: 3px;
             background: #ffffff;
         }
 
@@ -298,15 +298,15 @@
 
         .result-rank {
             position: absolute;
-            top: 4px;
-            left: 4px;
+            top: 3px;
+            left: 3px;
             background-color: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
             color: white;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 6px;
+            padding: 2px 5px;
+            border-radius: 5px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.3);
             z-index: 2;
         }
@@ -316,9 +316,8 @@
             color: white;
         }
 
-        /* 사진 바로 아래에 위치하는 깔끔한 제목 */
         .result-name {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             color: #2b1d18;
             white-space: nowrap;
@@ -333,7 +332,7 @@
             max-width: 400px;
             display: flex;
             justify-content: center;
-            padding-bottom: 4px;
+            padding-bottom: 2px;
         }
 
         .sub-action-btn {
