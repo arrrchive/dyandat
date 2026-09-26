@@ -47,17 +47,31 @@
             display: none !important;
         }
 
-        /* 1. 시작 화면 (흰색 박스를 완전히 제거하고 배경 사진 위에 바로 배치) */
+        /* 1. 시작 화면 (박스 배경을 없애고 배경 사진 위에 글씨와 버튼만 배치) */
         .start-container {
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             text-align: center;
             background: transparent;
-            padding: 80px 20px 60px 20px;
+            padding: 24px 20px;
+        }
+
+        .start-card-box {
+            width: 100%;
+            max-width: 340px;
+            background: transparent;
+            border: none;
+            padding: 40px 24px;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .start-header {
             width: 100%;
+            margin-bottom: 32px;
         }
 
         h1 {
@@ -93,10 +107,9 @@
 
         .main-btn {
             width: 100%;
-            max-width: 220px;
+            max-width: 200px;
             padding: 14px 0;
             font-size: 1rem;
-            margin-bottom: 20px;
         }
 
         /* 2. 게임 화면 */
@@ -343,11 +356,12 @@
 
     <!-- 1. 시작 화면 -->
     <div id="start-screen" class="screen start-container">
-        <div class="start-header">
-            <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
+        <div class="start-card-box">
+            <div class="start-header">
+                <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
+            </div>
+            <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
         </div>
-        <div></div>
-        <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
     </div>
 
     <!-- 2. 게임 화면 -->
