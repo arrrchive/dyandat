@@ -237,7 +237,7 @@
             background-color: rgba(255, 250, 242, 0.96);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            padding: 16px 10px;
+            padding: 14px 8px;
         }
 
         .result-content-wrapper {
@@ -249,11 +249,11 @@
         }
 
         .result-title-main {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
             color: #2b1d18;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .result-title-main .highlight {
@@ -272,20 +272,22 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            border-radius: 12px;
-            padding: 4px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 14px;
+            padding: 6px 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
-        /* 결과창 사진 비율을 1:1 정사각형으로 수정 */
+        /* 결과창 사진 비율을 세로형 (3:4)으로 수정하여 보내주신 이미지 형태 구현 */
         .result-img-wrap {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 3 / 4;
             border-radius: 10px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 2px;
-            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 4px;
+            background: #ffffff;
         }
 
         .result-img-wrap img {
@@ -296,29 +298,26 @@
 
         .result-rank {
             position: absolute;
-            top: 2px;
-            left: 2px;
-            background-color: #FF3366;
+            top: 4px;
+            left: 4px;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
             color: white;
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             font-weight: 700;
-            padding: 1px 3px;
-            border-radius: 3px;
+            padding: 2px 6px;
+            border-radius: 6px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.3);
             z-index: 2;
         }
 
         .result-rank.rank-1-badge {
-            background-color: #FF8800;
+            background-color: #FF3366;
             color: white;
-            font-size: 0.6rem;
-            padding: 2px 5px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
         .result-name {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: #2b1d18;
             white-space: nowrap;
@@ -332,7 +331,7 @@
             max-width: 400px;
             display: flex;
             justify-content: center;
-            padding-bottom: 10px;
+            padding-bottom: 4px;
         }
 
         .sub-action-btn {
@@ -340,8 +339,8 @@
             background-color: rgba(235, 225, 215, 0.9);
             color: #2b1d18;
             border: none;
-            padding: 12px 0;
-            font-size: 0.9rem;
+            padding: 10px 0;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             border-radius: 9999px;
