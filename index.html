@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>댠닺 떡밥 9선</title>
+    <!-- 캡처를 위한 html2canvas 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /* ★ 아래 url('image.png') 부분을 GitHub의 Raw 주소로 변경해주세요 */
+            background-image: url('image.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #1d1d1f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 16px 12px;
+            overflow-y: auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 1. 시작 화면 */
+        .start-container {
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            /* ★ 아래 url('image.png') 부분도 필요시 GitHub의 Raw 주소로 변경해주세요 */
+            background-image: url('image.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #2b1d18;
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .start-header {
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #2b1d18;
+            margin: 0;
+            letter-spacing: -0.03em;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        h1 .highlight {
+            color: #FF3366;
+        }
+
+        .main-btn {
+            width: 100%;
+            max-width: 200px;
+            background-color: #2b1d18;
+            color: #ffffff;
+            border: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 9999px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        .main-btn:active {
+            transform: scale(0.98);
+            background-color: #432e26;
+        }
+
+        /* 2. 게임 화면 */
+        .game-container {
+            background-color: rgba(255, 250, 242, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            justify-content: flex-start;
+        }
+
+        .progress-section {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .progress-text {
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666666;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 5px;
+            background-color: rgba(0, 0, 0, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background-color: #FF3366;
+            transition: width 0.3s ease;
+        }
+
+        .question-box {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2b1d18;
+            text-align: center;
+            margin: 10px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .choice-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: auto 0;
+        }
+
+        .choice-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.15s ease;
+        }
+
+        .choice-card:active {
+            transform: scale(0.96);
+        }
+
+        .card-img-wrap {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #f8f2eb;
+            overflow: hidden;
+        }
+
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .card-name {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2b1d18;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 3. 결과 화면 (위아래 대칭 여백 및 수직 중앙 정렬 조정) */
+        .result-container {
+            justify-content: center; /* 수직 방향 정중앙 정렬 */
+            gap: 12px;               /* 타이틀과 묶음, 버튼 사이의 일정한 간격 */
+            background-color: rgba(255, 250, 242, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 16px 10px;
+        }
+
+        .result-title-main {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #2b1d18;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+
+        .result-title-main .highlight {
+            color: #FF3366;
+        }
+
+        .capture-area {
+            background-color: rgba(255, 250, 242, 1);
+            padding: 8px 6px;
+            border-radius: 14px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            width: 100%;
+            margin-top: 6px;
+        }
+
+        .result-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .result-img-wrap {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .result-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .result-rank {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background-color: #FF3366;
+            color: white;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 1px 3px;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+
+        .result-name {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #2b1d18;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .result-btn-group {
+            width: 100%;
+            display: flex;
+            gap: 8px;
+        }
+
+        .sub-action-btn {
+            flex: 1;
+            background-color: rgba(235, 225, 215, 0.8);
+            color: #2b1d18;
+            border: none;
+            padding: 12px 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 9999px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .sub-action-btn.primary {
+            background-color: #2b1d18;
+            color: #ffffff;
+        }
+
+        .sub-action-btn:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 시작 화면 -->
+    <div id="start-screen" class="screen start-container">
+        <div class="start-header">
+            <h1>댠닺 떡밥 <span class="highlight">9</span>선</h1>
+        </div>
+        <div></div>
+        <button class="main-btn" onclick="startGame()">시작하기</button>
+        <div></div>
+    </div>
+
+    <!-- 2. 게임 화면 -->
+    <div id="game-screen" class="screen game-container hidden">
+        <div class="progress-section">
+            <div class="progress-text" id="progress-text">0%</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="question-box">
+            이 중에서 가장 마음에 드는 떡밥은 무엇인가요?
+        </div>
+
+        <div class="choice-grid" id="choices-box"></div>
+        <div style="height: 5px;"></div>
+    </div>
+
+    <!-- 3. 결과 화면 -->
+    <div id="result-screen" class="screen result-container hidden">
+        <div id="capture-target" class="capture-area">
+            <div class="result-title-main">좋아하는 댠닺 떡밥 <span class="highlight">9</span>선</div>
+            <div class="result-grid" id="result-box"></div>
+        </div>
+        
+        <div class="result-btn-group">
+            <button class="sub-action-btn" onclick="resetGame()">다시 하기</button>
+            <button class="sub-action-btn primary" onclick="saveResultImage()">사진 저장하기</button>
+        </div>
+    </div>
+
+    <script>
+        const rawItems = Array.from({ length: 32 }, (_, i) => ({
+            id: i + 1,
+            name: `스타즈 베이커리 ${i + 1}`,
+            // ★ 아래 "image.png" 부분을 GitHub의 Raw 주소로 변경해주세요
+            image: "image.png",
+            score: 1000
+        }));
+
+        let items = [];
+        let currentRound = 1;
+        const maxRounds = 20;
+
+        function startGame() {
+            items = rawItems.map(item => ({ ...item, score: 1000 }));
+            currentRound = 1;
+            
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            nextRound();
+        }
+
+        function nextRound() {
+            if (currentRound > maxRounds) {
+                endGame();
+                return;
+            }
+
+            let percent = Math.round(((currentRound - 1) / maxRounds) * 100);
+            document.getElementById('progress-text').innerText = `${percent}%`;
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+
+            let shuffled = [...items].sort(() => 0.5 - Math.random());
+            let currentChoices = shuffled.slice(0, 4);
+
+            let box = document.getElementById('choices-box');
+            box.innerHTML = '';
+
+            currentChoices.forEach(item => {
+                let card = document.createElement('div');
+                card.className = 'choice-card';
+                card.onclick = () => selectChoice(item, currentChoices);
+                
+                card.innerHTML = `
+                    <div class="card-img-wrap">
+                        <img src="${item.image}" crossorigin="anonymous" alt="${item.name}">
+                    </div>
+                    <div class="card-info">
+                        <div class="card-name">${item.name}</div>
+                    </div>
+                `;
+                box.appendChild(card);
+            });
+        }
+
+        function selectChoice(selected, group) {
+            selected.score += 40;
+            group.forEach(item => {
+                if (item.id !== selected.id) {
+                    item.score -= 10;
+                }
+            });
+
+            currentRound++;
+            nextRound();
+        }
+
+        function endGame() {
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            let sorted = [...items].sort((a, b) => b.score - a.score);
+            let top9 = sorted.slice(0, 9);
+
+            let resultBox = document.getElementById('result-box');
+            resultBox.innerHTML = '';
+
+            top9.forEach((item, index) => {
+                let card = document.createElement('div');
+                card.className = 'result-card';
+                
+                card.innerHTML = `
+                    <div class="result-img-wrap">
+                        <div class="result-rank">${index + 1}위</div>
+                        <img src="${item.image}" crossorigin="anonymous" alt="${item.name}">
+                    </div>
+                    <div class="result-name">${item.name}</div>
+                `;
+                resultBox.appendChild(card);
+            });
+        }
+
+        function resetGame() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+        }
+
+        function saveResultImage() {
+            const target = document.getElementById('capture-target');
+            
+            html2canvas(target, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: false,
+                backgroundColor: '#fffaf2'
+            }).then(canvas => {
+                canvas.toBlob(blob => {
+                    if (!blob) {
+                        fallbackDownload(canvas);
+                        return;
+                    }
+                    const file = new File([blob], '댠닺_떡밥_9선_결과.png', { type: 'image/png' });
+                    
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        navigator.share({
+                            files: [file],
+                            title: '댠닺 떡밥 9선 결과',
+                            text: '내가 고른 댠닺 떡밥 9선 결과입니다!'
+                        }).catch(() => {});
+                    } else {
+                        fallbackDownload(canvas);
+                    }
+                }, 'image/png');
+            }).catch(() => {
+                alert('모바일 브라우저 보안 정책으로 자동 저장이 어려울 수 있습니다. 결과 화면을 캡처해서 사용해 보세요!');
+            });
+        }
+
+        function fallbackDownload(canvas) {
+            const link = document.createElement('a');
+            link.download = '댠닺_떡밥_9선_결과.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>
