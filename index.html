@@ -504,8 +504,8 @@
 
                 card.onclick = (e) => selectChoice(item, currentChoices, card);
                 
-                // 9번 사진(id === 9)인 경우만 object-fit을 contain으로 적용하여 잘림 방지
-                let imgStyle = item.id === 9 ? 'object-fit: contain; background-color: #f4f4f4;' : '';
+                // 9번 사진(id === 9)인 경우 이미지가 잘릴 때 오른쪽 영역(목걸이 부분)이 더 잘 보이도록 중심축 이동
+                let imgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
                 
                 card.innerHTML = `
                     <div class="card-img-wrap">
@@ -578,8 +578,8 @@
                 let card = document.createElement('div');
                 card.className = 'result-card';
                 
-                // 결과 화면에서도 9번 사진(id === 9)은 잘리지 않도록 적용
-                let resultImgStyle = item.id === 9 ? 'object-fit: contain; background-color: #f4f4f4;' : '';
+                // 결과 화면에서도 9번 사진은 오른쪽 구도가 더 보이도록 설정
+                let resultImgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
 
                 card.innerHTML = `
                     <div class="result-img-wrap">
