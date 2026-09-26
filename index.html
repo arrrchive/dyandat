@@ -81,29 +81,22 @@
             color: #FF3366;
         }
 
-        /* 공통 그라데이션 버튼 (보라색 중심 다채로운 파스텔톤 조합) */
-        .gradient-btn {
-            background: linear-gradient(135deg, #9b51e0, #6c5ce7, #a29bfe, #fd79a8);
-            background-size: 300% 300%;
-            animation: gradientMove 6s ease infinite;
+        /* 애니메이션을 제거하고 보라-핑크빛이 부드럽게 어우러지는 고정 그라데이션 적용 */
+        .static-gradient-btn {
+            background: linear-gradient(135deg, #8a65e8, #b185f5);
             color: #ffffff;
             border: none;
             font-weight: 700;
             cursor: pointer;
             border-radius: 9999px;
-            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.3);
-            transition: transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 16px rgba(138, 101, 232, 0.3);
+            transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
-        .gradient-btn:active {
+        .static-gradient-btn:active {
             transform: scale(0.97);
-            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.2);
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            box-shadow: 0 2px 8px rgba(138, 101, 232, 0.2);
+            background: linear-gradient(135deg, #7852d4, #9d6ceb);
         }
 
         .main-btn {
@@ -362,7 +355,7 @@
             <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
         </div>
         <div></div>
-        <button class="gradient-btn main-btn" onclick="startGame()">시작하기</button>
+        <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
     </div>
 
     <!-- 2. 게임 화면 -->
@@ -395,7 +388,7 @@
         </div>
         
         <div class="result-btn-group">
-            <button class="gradient-btn sub-action-btn" onclick="resetGame()">다시 하기</button>
+            <button class="static-gradient-btn sub-action-btn" onclick="resetGame()">다시 하기</button>
         </div>
     </div>
 
