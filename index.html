@@ -426,7 +426,7 @@
 
         let items = [];
         let currentRound = 1;
-        const maxRounds = 32;
+        const maxRounds = 40; // 40라운드로 확장
         let historyStack = [];
         let currentChoices = [];
         let lastSelectedId = null;
@@ -439,7 +439,10 @@
             currentChoices = [];
             lastSelectedId = null;
             
-            shuffledQueue = [...items].sort(() => 0.5 - Math.random());
+            // 40라운드 동안 모든 아이템이 골고루 등장할 수 있도록 큐 생성 (32개를 기본으로 섞고 남은 8개는 무작위 추가)
+            let base = [...items].sort(() => 0.5 - Math.random());
+            let extra = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
+            shuffledQueue = [...base, ...extra];
             
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('game-screen').classList.remove('hidden');
@@ -470,7 +473,7 @@
                 let targetItem = shuffledQueue[currentRound - 1];
                 let others = items.filter(i => i.id !== targetItem.id).sort(() => 0.5 - Math.random()).slice(0, 3);
                 
-                // 선택된 4개 아이템의 화면 내 배치 위치(인덱스)가 매번 랜덤하게 섞이도록 처리
+                // 선택된 4개 아이템의 화면 내 위치(인덱스)가 매번 무작위로 섞이도록 처리
                 currentChoices = [targetItem, ...others].sort(() => 0.5 - Math.random());
                 lastSelectedId = null;
             }
