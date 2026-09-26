@@ -47,7 +47,7 @@
             display: none !important;
         }
 
-        /* 1. 시작 화면 (배경 사진이 은은하게 비치는 반투명 블러 스타일) */
+        /* 1. 시작 화면 */
         .start-container {
             justify-content: space-between;
             align-items: center;
@@ -426,10 +426,11 @@
 
         let items = [];
         let currentRound = 1;
-        const maxRounds = 32; // <--- 32로 수정되었습니다
+        const maxRounds = 32;
         let historyStack = [];
         let currentChoices = [];
         let lastSelectedId = null;
+        let shuffledQueue = [];
 
         function startGame() {
             items = rawItems.map(item => ({ ...item, score: 1000 }));
@@ -437,6 +438,8 @@
             historyStack = [];
             currentChoices = [];
             lastSelectedId = null;
+            
+            shuffledQueue = [...items].sort(() => 0.5 - Math.random());
             
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('game-screen').classList.remove('hidden');
@@ -464,8 +467,11 @@
                 currentChoices = restoredChoices;
                 lastSelectedId = restoredSelectedId;
             } else {
-                let shuffled = [...items].sort(() => 0.5 - Math.random());
-                currentChoices = shuffled.slice(0, 4);
+                let targetItem = shuffledQueue[currentRound - 1];
+                let others = items.filter(i => i.id !== targetItem.id).sort(() => 0.5 - Math.random()).slice(0, 3);
+                
+                // 선택된 4개 아이템의 화면 내 배치 위치(인덱스)가 매번 랜덤하게 섞이도록 처리
+                currentChoices = [targetItem, ...others].sort(() => 0.5 - Math.random());
                 lastSelectedId = null;
             }
 
@@ -502,7 +508,8 @@
                 itemsState: items.map(i => ({ ...i })),
                 round: currentRound,
                 choices: [...currentChoices],
-                selectedId: selected.id
+                selectedId: selected.id,
+                queueState: [...shuffledQueue]
             });
 
             selected.score += 40;
@@ -525,6 +532,7 @@
             const lastState = historyStack.pop();
             items = lastState.itemsState;
             currentRound = lastState.round;
+            shuffledQueue = lastState.queueState;
 
             nextRound(lastState.choices, lastState.selectedId);
         }
