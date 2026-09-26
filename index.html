@@ -81,26 +81,37 @@
             color: #FF3366;
         }
 
-        /* 시작하기 버튼을 아래로 배치하고 파스텔톤 배경 적용 */
-        .main-btn {
-            width: 100%;
-            max-width: 220px;
-            background-color: #ffd1dc;
-            color: #5c3a41;
+        /* 공통 그라데이션 버튼 (보라색 중심 다채로운 파스텔톤 조합) */
+        .gradient-btn {
+            background: linear-gradient(135deg, #9b51e0, #6c5ce7, #a29bfe, #fd79a8);
+            background-size: 300% 300%;
+            animation: gradientMove 6s ease infinite;
+            color: #ffffff;
             border: none;
-            padding: 14px 0;
-            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             border-radius: 9999px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            transition: transform 0.1s ease, background-color 0.2s ease;
-            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.3);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
 
-        .main-btn:active {
-            transform: scale(0.98);
-            background-color: #f8bbc7;
+        .gradient-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(108, 92, 231, 0.2);
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-btn {
+            width: 100%;
+            max-width: 220px;
+            padding: 14px 0;
+            font-size: 1rem;
+            margin-bottom: 20px;
         }
 
         /* 2. 게임 화면 */
@@ -338,21 +349,8 @@
 
         .sub-action-btn {
             width: 60%;
-            background-color: #1d1d1f;
-            color: #ffffff;
-            border: none;
             padding: 12px 0;
             font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 9999px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-            transition: transform 0.1s ease, background-color 0.2s ease;
-        }
-
-        .sub-action-btn:active {
-            transform: scale(0.98);
-            background-color: #333333;
         }
     </style>
 </head>
@@ -364,7 +362,7 @@
             <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
         </div>
         <div></div>
-        <button class="main-btn" onclick="startGame()">시작하기</button>
+        <button class="gradient-btn main-btn" onclick="startGame()">시작하기</button>
     </div>
 
     <!-- 2. 게임 화면 -->
@@ -397,7 +395,7 @@
         </div>
         
         <div class="result-btn-group">
-            <button class="sub-action-btn" onclick="resetGame()">다시 하기</button>
+            <button class="gradient-btn sub-action-btn" onclick="resetGame()">다시 하기</button>
         </div>
     </div>
 
