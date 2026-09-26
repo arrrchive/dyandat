@@ -150,7 +150,7 @@
             width: 100%;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
             margin: auto 0;
         }
 
@@ -169,10 +169,10 @@
             transform: scale(0.96);
         }
 
-        /* 선택창 사진의 세로를 조금 더 늘림 (4:3 -> 3:4 비율로 변경) */
+        /* 선택창 사진 세로를 버튼이 안 잘릴 정도로만 아주 조금 줄임 (4:3.4 비율) */
         .card-img-wrap {
             width: 100%;
-            aspect-ratio: 3 / 4;
+            aspect-ratio: 4 / 3.4;
             background-color: #f8f2eb;
             overflow: hidden;
         }
@@ -183,9 +183,11 @@
             object-fit: cover;
         }
 
+        /* 선택창 하단 제목 박스 배경을 아이보리 톤과 어울리게 변경 */
         .card-info {
             padding: 10px 8px;
             text-align: center;
+            background-color: rgba(247, 241, 233, 0.95);
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
@@ -278,7 +280,6 @@
             box-shadow: none;
         }
 
-        /* 결과창 사진 세로를 더 줄임 (1:1 정사각형에 가깝게 조절) */
         .result-img-wrap {
             width: 100%;
             aspect-ratio: 1 / 1;
