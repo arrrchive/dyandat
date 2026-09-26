@@ -39,7 +39,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 12px 10px;
+            padding: 14px 12px;
             overflow-y: auto;
         }
 
@@ -101,11 +101,9 @@
             background-color: #432e26;
         }
 
-        /* 2. 게임 화면 */
+        /* 2. 게임 화면 (배경 흰색으로 변경) */
         .game-container {
-            background-color: rgba(255, 250, 242, 0.96);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background-color: #ffffff;
             justify-content: flex-start;
         }
 
@@ -140,7 +138,7 @@
         .question-box {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #2b1d18;
+            color: #1d1d1f;
             text-align: center;
             margin: 8px 0;
             letter-spacing: -0.02em;
@@ -155,25 +153,25 @@
         }
 
         .choice-card {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: #fcfcfc;
+            border: 1px solid #eaeaea;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             cursor: pointer;
             display: flex;
             flex-direction: column;
-            transition: transform 0.15s ease;
+            transition: transform 0.15s ease, border-color 0.2s ease;
         }
 
         .choice-card:active {
             transform: scale(0.96);
         }
 
-        /* 선택창 사진 세로를 버튼이 안 잘릴 정도로만 아주 조금 줄임 (4:3.4 비율) */
         .card-img-wrap {
             width: 100%;
-            aspect-ratio: 4 / 3.4;
-            background-color: #f8f2eb;
+            aspect-ratio: 4 / 3.1;
+            background-color: #f4f4f4;
             overflow: hidden;
         }
 
@@ -183,21 +181,24 @@
             object-fit: cover;
         }
 
-        /* 선택창 하단 제목 박스 배경을 아이보리 톤과 어울리게 변경 */
         .card-info {
             padding: 10px 8px;
             text-align: center;
-            background-color: rgba(247, 241, 233, 0.95);
+            background-color: #ffffff;
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .card-name {
             font-size: 0.9rem;
             font-weight: 700;
-            color: #2b1d18;
+            color: #1d1d1f;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .choice-card.selected {
+            border-color: #007AFF;
         }
 
         .choice-card.selected .card-info {
@@ -212,35 +213,33 @@
             width: 100%;
             display: flex;
             justify-content: flex-start;
-            padding: 8px 0;
-            min-height: 40px;
+            padding: 6px 4px;
+            min-height: 36px;
+            align-items: center;
         }
 
+        /* '이전으로' 박스 제거하고 텍스트만 클릭되도록 수정 */
         .back-btn {
-            background-color: rgba(235, 225, 215, 0.9);
-            color: #2b1d18;
+            background: none;
             border: none;
-            padding: 8px 16px;
-            font-size: 0.8rem;
+            color: #666666;
+            font-size: 0.9rem;
             font-weight: 600;
-            border-radius: 9999px;
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            transition: background-color 0.2s ease;
+            padding: 4px 0;
+            transition: color 0.2s ease;
         }
 
         .back-btn:active {
-            background-color: #d2c2b2;
+            color: #1d1d1f;
         }
 
-        /* 3. 결과 화면 */
+        /* 3. 결과 화면 (배경 흰색으로 변경) */
         .result-container {
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(255, 250, 242, 0.96);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 10px 8px;
+            background-color: #ffffff;
+            padding: 12px 10px;
         }
 
         .result-content-wrapper {
@@ -254,7 +253,7 @@
         .result-title-main {
             font-size: 1.1rem;
             font-weight: 800;
-            color: #2b1d18;
+            color: #1d1d1f;
             text-align: center;
             margin-bottom: 6px;
         }
@@ -286,9 +285,9 @@
             border-radius: 10px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
             margin-bottom: 3px;
-            background: #ffffff;
+            background: #f4f4f4;
         }
 
         .result-img-wrap img {
@@ -320,7 +319,7 @@
         .result-name {
             font-size: 0.65rem;
             font-weight: 700;
-            color: #2b1d18;
+            color: #1d1d1f;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -333,25 +332,27 @@
             max-width: 400px;
             display: flex;
             justify-content: center;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
         }
 
+        /* 다시 하기 버튼 디자인을 흰색 배경과 어울리게 수정 */
         .sub-action-btn {
-            width: 50%;
-            background-color: rgba(235, 225, 215, 0.9);
-            color: #2b1d18;
+            width: 60%;
+            background-color: #1d1d1f;
+            color: #ffffff;
             border: none;
-            padding: 10px 0;
-            font-size: 0.85rem;
-            font-weight: 600;
+            padding: 12px 0;
+            font-size: 0.9rem;
+            font-weight: 700;
             cursor: pointer;
             border-radius: 9999px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s ease, background-color 0.2s ease;
         }
 
         .sub-action-btn:active {
             transform: scale(0.98);
+            background-color: #333333;
         }
     </style>
 </head>
