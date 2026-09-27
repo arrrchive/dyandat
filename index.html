@@ -441,10 +441,9 @@
             lastSelectedId = null;
             lastChoices = null;
             
-            // [완벽한 균등 분할 큐 생성]
-            // 첫 번째 바퀴: 32개 전체 아이템이 절대 안 겹치고 무조건 1번씩 다 나옴 (1~32라운드)
+            // 첫 번째 바퀴(32개)는 절대 안 겹치고 모두 공평하게 등장
             let firstBatch = [...items].sort(() => 0.5 - Math.random());
-            // 두 번째 바퀴: 남은 8라운드(33~40라운드)를 채우기 위해 32개 중 무작위로 8개를 골라 섞음 (이때도 1세트 내에서는 중복 없음)
+            // 두 번째 바퀴(나머지 8개 라운드) 채우기
             let secondBatch = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
             
             shuffledQueue = [...firstBatch, ...secondBatch];
@@ -481,6 +480,7 @@
                 
                 let newChoices = [targetItem, ...others];
 
+                // 직전 라운드와 같은 위치(인덱스)에 동일한 카드가 연속으로 배치되지 않도록 교정
                 if (lastChoices && lastChoices.length === 4) {
                     let attempts = 0;
                     while (attempts < 50) {
@@ -579,7 +579,6 @@
                 let actualRank = sorted.findIndex(i => i.id === item.id) + 1;
                 
                 let card = document.createElement('div');
-                card.className, 'result-card';
                 card.className = 'result-card';
                 
                 let resultImgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
