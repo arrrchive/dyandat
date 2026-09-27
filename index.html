@@ -47,63 +47,7 @@
             display: none !important;
         }
 
-        /* 1. 시작 화면 */
-        .start-container {
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: #2b1d18;
-            padding-top: 80px;
-            padding-bottom: 40px;
-        }
-
-        .start-header {
-            width: 100%;
-        }
-
-        h1 {
-            font-size: 2.3rem;
-            font-weight: 800;
-            color: #2b1d18;
-            margin: 0;
-            letter-spacing: -0.03em;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
-        }
-
-        h1 .highlight {
-            color: #FF3366;
-        }
-
-        /* 고정 그라데이션 버튼 */
-        .static-gradient-btn {
-            background: linear-gradient(135deg, #8a65e8, #b185f5);
-            color: #ffffff;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 9999px;
-            box-shadow: 0 4px 16px rgba(138, 101, 232, 0.35);
-            transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-
-        .static-gradient-btn:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 8px rgba(138, 101, 232, 0.2);
-            background: linear-gradient(135deg, #7852d4, #9d6ceb);
-        }
-
-        .main-btn {
-            width: 100%;
-            max-width: 220px;
-            padding: 14px 0;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
-        /* 2. 게임 화면 */
+        /* 1. 게임 화면 */
         .game-container {
             background-color: #ffffff;
             justify-content: flex-start;
@@ -235,7 +179,7 @@
             color: #1d1d1f;
         }
 
-        /* 3. 결과 화면 */
+        /* 2. 결과 화면 */
         .result-container {
             justify-content: space-between;
             align-items: center;
@@ -336,6 +280,23 @@
             padding-bottom: 4px;
         }
 
+        .static-gradient-btn {
+            background: linear-gradient(135deg, #8a65e8, #b185f5);
+            color: #ffffff;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 9999px;
+            box-shadow: 0 4px 16px rgba(138, 101, 232, 0.35);
+            transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .static-gradient-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(138, 101, 232, 0.2);
+            background: linear-gradient(135deg, #7852d4, #9d6ceb);
+        }
+
         .sub-action-btn {
             width: 60%;
             padding: 12px 0;
@@ -345,17 +306,8 @@
 </head>
 <body>
 
-    <!-- 1. 시작 화면 -->
-    <div id="start-screen" class="screen start-container">
-        <div class="start-header">
-            <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
-        </div>
-        <div></div>
-        <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
-    </div>
-
-    <!-- 2. 게임 화면 -->
-    <div id="game-screen" class="screen game-container hidden">
+    <!-- 게임 화면 (시작하자마자 바로 노출) -->
+    <div id="game-screen" class="screen game-container">
         <div class="progress-section">
             <div class="progress-text" id="progress-text">0%</div>
             <div class="progress-bar-bg">
@@ -374,7 +326,7 @@
         </div>
     </div>
 
-    <!-- 3. 결과 화면 -->
+    <!-- 결과 화면 -->
     <div id="result-screen" class="screen result-container hidden">
         <div></div>
         
@@ -384,7 +336,7 @@
         </div>
         
         <div class="result-btn-group">
-            <button class="static-gradient-btn sub-action-btn" onclick="resetGame()">다시 하기</button>
+            <button class="static-gradient-btn sub-action-btn" onclick="startGame()">다시 하기</button>
         </div>
     </div>
 
@@ -441,14 +393,12 @@
             lastSelectedId = null;
             lastChoices = null;
             
-            // 첫 번째 바퀴(32개)는 절대 안 겹치고 모두 공평하게 등장
             let firstBatch = [...items].sort(() => 0.5 - Math.random());
-            // 두 번째 바퀴(나머지 8개 라운드) 채우기
             let secondBatch = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
             
             shuffledQueue = [...firstBatch, ...secondBatch];
             
-            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
             document.getElementById('game-screen').classList.remove('hidden');
             nextRound();
         }
@@ -480,7 +430,6 @@
                 
                 let newChoices = [targetItem, ...others];
 
-                // 직전 라운드와 같은 위치(인덱스)에 동일한 카드가 연속으로 배치되지 않도록 교정
                 if (lastChoices && lastChoices.length === 4) {
                     let attempts = 0;
                     while (attempts < 50) {
@@ -594,10 +543,10 @@
             });
         }
 
-        function resetGame() {
-            document.getElementById('result-screen').classList.add('hidden');
-            document.getElementById('start-screen').classList.remove('hidden');
-        }
+        // 페이지가 열리자마자 바로 게임이 시작되도록 자동 실행
+        window.onload = function() {
+            startGame();
+        };
     </script>
 </body>
 </html>
