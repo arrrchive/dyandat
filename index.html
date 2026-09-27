@@ -441,9 +441,13 @@
             lastSelectedId = null;
             lastChoices = null;
             
-            let base = [...items].sort(() => 0.5 - Math.random());
-            let extra = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
-            shuffledQueue = [...base, ...extra];
+            // [완벽한 균등 분할 큐 생성]
+            // 첫 번째 바퀴: 32개 전체 아이템이 절대 안 겹치고 무조건 1번씩 다 나옴 (1~32라운드)
+            let firstBatch = [...items].sort(() => 0.5 - Math.random());
+            // 두 번째 바퀴: 남은 8라운드(33~40라운드)를 채우기 위해 32개 중 무작위로 8개를 골라 섞음 (이때도 1세트 내에서는 중복 없음)
+            let secondBatch = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
+            
+            shuffledQueue = [...firstBatch, ...secondBatch];
             
             document.getElementById('start-screen').classList.add('hidden');
             document.getElementById('game-screen').classList.remove('hidden');
@@ -504,7 +508,6 @@
 
                 card.onclick = (e) => selectChoice(item, currentChoices, card);
                 
-                // 9번 사진(id === 9)인 경우 이미지가 잘릴 때 오른쪽 영역(목걸이 부분)이 더 잘 보이도록 중심축 이동
                 let imgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
                 
                 card.innerHTML = `
@@ -576,9 +579,9 @@
                 let actualRank = sorted.findIndex(i => i.id === item.id) + 1;
                 
                 let card = document.createElement('div');
+                card.className, 'result-card';
                 card.className = 'result-card';
                 
-                // 결과 화면에서도 9번 사진은 오른쪽 구도가 더 보이도록 설정
                 let resultImgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
 
                 card.innerHTML = `
