@@ -1,587 +1,604 @@
- html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('image.png');
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        color: #1d1d1f;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>댠닺 떡밥 9선</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .screen {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        max-width: 480px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 20px 16px;
-        overflow-y: auto;
-    }
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('image.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #1d1d1f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-    .hidden {
-        display: none !important;
-    }
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+            overflow-y: auto;
+        }
 
-    /* 1. 시작 화면 */
-    .start-container {
-        justify-content: space-between;
-        align-items: center;
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.45);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        color: #2b1d18;
-        padding-top: 80px;
-        padding-bottom: 40px;
-    }
+        .hidden {
+            display: none !important;
+        }
 
-    .start-header {
-        width: 100%;
-    }
+        /* 1. 시작 화면 */
+        .start-container {
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #2b1d18;
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
 
-    h1 {
-        font-size: 2.3rem;
-        font-weight: 800;
-        color: #2b1d18;
-        margin: 0;
-        letter-spacing: -0.03em;
-        text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
-    }
+        .start-header {
+            width: 100%;
+        }
 
-    h1 .highlight {
-        color: #FF3366;
-    }
+        h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: #2b1d18;
+            margin: 0;
+            letter-spacing: -0.03em;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+        }
 
-    /* 고정 그라데이션 버튼 */
-    .static-gradient-btn {
-        background: linear-gradient(135deg, #8a65e8, #b185f5);
-        color: #ffffff;
-        border: none;
-        font-weight: 700;
-        cursor: pointer;
-        border-radius: 9999px;
-        box-shadow: 0 4px 16px rgba(138, 101, 232, 0.35);
-        transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
+        h1 .highlight {
+            color: #FF3366;
+        }
 
-    .static-gradient-btn:active {
-        transform: scale(0.97);
-        box-shadow: 0 2px 8px rgba(138, 101, 232, 0.2);
-        background: linear-gradient(135deg, #7852d4, #9d6ceb);
-    }
+        /* 고정 그라데이션 버튼 */
+        .static-gradient-btn {
+            background: linear-gradient(135deg, #8a65e8, #b185f5);
+            color: #ffffff;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 9999px;
+            box-shadow: 0 4px 16px rgba(138, 101, 232, 0.35);
+            transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
 
-    .main-btn {
-        width: 100%;
-        max-width: 220px;
-        padding: 14px 0;
-        font-size: 1rem;
-        margin-bottom: 20px;
-    }
+        .static-gradient-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(138, 101, 232, 0.2);
+            background: linear-gradient(135deg, #7852d4, #9d6ceb);
+        }
 
-    /* 2. 게임 화면 */
-    .game-container {
-        background-color: #ffffff;
-        justify-content: flex-start;
-    }
+        .main-btn {
+            width: 100%;
+            max-width: 220px;
+            padding: 14px 0;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
 
-    .progress-section {
-        width: 100%;
-        margin-bottom: 4px;
-    }
+        /* 2. 게임 화면 */
+        .game-container {
+            background-color: #ffffff;
+            justify-content: flex-start;
+        }
 
-    .progress-text {
-        text-align: right;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #666666;
-        margin-bottom: 2px;
-    }
+        .progress-section {
+            width: 100%;
+            margin-bottom: 4px;
+        }
 
-    .progress-bar-bg {
-        width: 100%;
-        height: 4px;
-        background-color: rgba(0, 0, 0, 0.08);
-        border-radius: 2px;
-        overflow: hidden;
-    }
+        .progress-text {
+            text-align: right;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #666666;
+            margin-bottom: 2px;
+        }
 
-    .progress-bar-fill {
-        width: 0%;
-        height: 100%;
-        background-color: #FF3366;
-        transition: width 0.3s ease;
-    }
+        .progress-bar-bg {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.08);
+            border-radius: 2px;
+            overflow: hidden;
+        }
 
-    .question-box {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #1d1d1f;
-        text-align: center;
-        margin: 4px 0;
-        letter-spacing: -0.02em;
-    }
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background-color: #FF3366;
+            transition: width 0.3s ease;
+        }
 
-    .choice-grid {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin: auto 0;
-    }
+        .question-box {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            text-align: center;
+            margin: 4px 0;
+            letter-spacing: -0.02em;
+        }
 
-    .choice-card {
-        background-color: #fcfcfc;
-        border: 1px solid #eaeaea;
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.15s ease, border-color 0.2s ease;
-    }
+        .choice-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: auto 0;
+        }
 
-    .choice-card:active {
-        transform: scale(0.96);
-    }
+        .choice-card {
+            background-color: #fcfcfc;
+            border: 1px solid #eaeaea;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.15s ease, border-color 0.2s ease;
+        }
 
-    .card-img-wrap {
-        width: 100%;
-        aspect-ratio: 3 / 4;
-        background-color: #f4f4f4;
-        overflow: hidden;
-    }
+        .choice-card:active {
+            transform: scale(0.96);
+        }
 
-    .card-img-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+        .card-img-wrap {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
 
-    .card-info {
-        padding: 6px 4px;
-        text-align: center;
-        background-color: #f5f5f7;
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .card-name {
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #1d1d1f;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        .card-info {
+            padding: 6px 4px;
+            text-align: center;
+            background-color: #f5f5f7;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
 
-    .choice-card.selected {
-        border-color: #007AFF;
-    }
+        .card-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-    .choice-card.selected .card-info {
-        background-color: #007AFF;
-    }
+        .choice-card.selected {
+            border-color: #007AFF;
+        }
 
-    .choice-card.selected .card-name {
-        color: #ffffff;
-    }
+        .choice-card.selected .card-info {
+            background-color: #007AFF;
+        }
 
-    .game-footer {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        padding: 2px 2px;
-        min-height: 28px;
-        align-items: center;
-    }
+        .choice-card.selected .card-name {
+            color: #ffffff;
+        }
 
-    .back-btn {
-        background: none;
-        border: none;
-        color: #666666;
-        font-size: 0.85rem;
-        font-weight: 600;
-        cursor: pointer;
-        padding: 2px 0;
-        transition: color 0.2s ease;
-    }
+        .game-footer {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            padding: 2px 2px;
+            min-height: 28px;
+            align-items: center;
+        }
 
-    .back-btn:active {
-        color: #1d1d1f;
-    }
+        .back-btn {
+            background: none;
+            border: none;
+            color: #666666;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 2px 0;
+            transition: color 0.2s ease;
+        }
 
-    /* 3. 결과 화면 */
-    .result-container {
-        justify-content: space-between;
-        align-items: center;
-        background-color: #ffffff;
-        padding: 12px 10px;
-    }
+        .back-btn:active {
+            color: #1d1d1f;
+        }
 
-    .result-content-wrapper {
-        width: 100%;
-        max-width: 400px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+        /* 3. 결과 화면 */
+        .result-container {
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 12px 10px;
+        }
 
-    .result-title-main {
-        font-size: 1.1rem;
-        font-weight: 800;
-        color: #1d1d1f;
-        text-align: center;
-        margin-bottom: 6px;
-    }
+        .result-content-wrapper {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .result-title-main .highlight {
-        color: #FF3366;
-    }
+        .result-title-main {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1d1d1f;
+            text-align: center;
+            margin-bottom: 6px;
+        }
 
-    .result-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        width: 100%;
-    }
+        .result-title-main .highlight {
+            color: #FF3366;
+        }
 
-    .result-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        background: transparent;
-        padding: 0;
-        box-shadow: none;
-    }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
 
-    .result-img-wrap {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        border-radius: 10px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-        margin-bottom: 3px;
-        background: #f4f4f4;
-    }
+        .result-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: transparent;
+            padding: 0;
+            box-shadow: none;
+        }
 
-    .result-img-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+        .result-img-wrap {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            margin-bottom: 3px;
+            background: #f4f4f4;
+        }
 
-    .result-rank {
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(4px);
-        color: white;
-        font-size: 0.55rem;
-        font-weight: 700;
-        padding: 2px 5px;
-        border-radius: 5px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        z-index: 2;
-    }
+        .result-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .result-rank.rank-1-badge {
-        background-color: #FF3366;
-        color: white;
-    }
+        .result-rank {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            color: white;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
 
-    .result-name {
-        font-size: 0.65rem;
-        font-weight: 700;
-        color: #1d1d1f;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        padding: 0 2px;
-    }
+        .result-rank.rank-1-badge {
+            background-color: #FF3366;
+            color: white;
+        }
 
-    .result-btn-group {
-        width: 100%;
-        max-width: 400px;
-        display: flex;
-        justify-content: center;
-        padding-bottom: 4px;
-    }
+        .result-name {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            padding: 0 2px;
+        }
 
-    .sub-action-btn {
-        width: 60%;
-        padding: 12px 0;
-        font-size: 0.9rem;
-    }
-</style>
+        .result-btn-group {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
 
+        .sub-action-btn {
+            width: 60%;
+            padding: 12px 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
 
-<!-- 1. 시작 화면 -->
-<div id="start-screen" class="screen start-container">
-    <div class="start-header">
-        <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
+    <!-- 1. 시작 화면 -->
+    <div id="start-screen" class="screen start-container">
+        <div class="start-header">
+            <h1>댠닺 떡밥 <span class="highlight">9선</span></h1>
+        </div>
+        <div></div>
+        <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
     </div>
-    <div></div>
-    <button class="static-gradient-btn main-btn" onclick="startGame()">시작하기</button>
-</div>
 
-<!-- 2. 게임 화면 -->
-<div id="game-screen" class="screen game-container hidden">
-    <div class="progress-section">
-        <div class="progress-text" id="progress-text">0%</div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progress-fill"></div>
+    <!-- 2. 게임 화면 -->
+    <div id="game-screen" class="screen game-container hidden">
+        <div class="progress-section">
+            <div class="progress-text" id="progress-text">0%</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="question-box">
+            이 중에서 가장 마음에 드는 떡밥은 무엇인가요?
+        </div>
+
+        <div class="choice-grid" id="choices-box"></div>
+        
+        <div class="game-footer">
+            <button id="back-btn" class="back-btn hidden" onclick="goBack()">← 이전으로</button>
         </div>
     </div>
 
-    <div class="question-box">
-        이 중에서 가장 마음에 드는 떡밥은 무엇인가요?
-    </div>
-
-    <div class="choice-grid" id="choices-box"></div>
-    
-    <div class="game-footer">
-        <button id="back-btn" class="back-btn hidden" onclick="goBack()">← 이전으로</button>
-    </div>
-</div>
-
-<!-- 3. 결과 화면 -->
-<div id="result-screen" class="screen result-container hidden">
-    <div></div>
-    
-    <div class="result-content-wrapper">
-        <div class="result-title-main">좋아하는 댠닺 떡밥 <span class="highlight">9선</span></div>
-        <div class="result-grid" id="result-box"></div>
-    </div>
-    
-    <div class="result-btn-group">
-        <button class="static-gradient-btn sub-action-btn" onclick="resetGame()">다시 하기</button>
-    </div>
-</div>
-
-<script>
-    const rawItems = [
-        { id: 1, name: "연습실 하트", image: "1.jpg", score: 1000 },
-        { id: 2, name: "만두", image: "2.jpg", score: 1000 },
-        { id: 3, name: "스타즈 베이커리", image: "3.jpg", score: 1000 },
-        { id: 4, name: "댜니 생일", image: "4.jpg", score: 1000 },
-        { id: 5, name: "영화관 데이트", image: "5.jpg", score: 1000 },
-        { id: 6, name: "나 지우 옆에 갈래", image: "6.jpg", score: 1000 },
-        { id: 7, name: "에버랜드", image: "7.jpg", score: 1000 },
-        { id: 8, name: "스텔라는 저 좋아해요", image: "8.jpg", score: 1000 },
-        { id: 9, name: "커플 목걸이", image: "9.jpg", score: 1000 },
-        { id: 10, name: "어메이징 플러팅 실력", image: "10.jpg", score: 1000 },
-        { id: 11, name: "러브버그", image: "11.jpg", score: 1000 },
-        { id: 12, name: "더 자주 붙어 있도록 하세요", image: "12.jpg", score: 1000 },
-        { id: 13, name: "집착을 너무 심하게 하거든요", image: "13.jpg", score: 1000 },
-        { id: 14, name: "다현이 사랑해라고 해봐", image: "14.jpg", score: 1000 },
-        { id: 15, name: "뒷댠닺", image: "15.jpg", score: 1000 },
-        { id: 16, name: "귀여워", image: "16.jpg", score: 1000 },
-        { id: 17, name: "무릎", image: "17.jpg", score: 1000 },
-        { id: 18, name: "자기야", image: "18.jpg", score: 1000 },
-        { id: 19, name: "골져스 새침데기 플러팅", image: "19.jpg", score: 1000 },
-        { id: 20, name: "아웅다웅", image: "20.jpg", score: 1000 },
-        { id: 21, name: "손 만지작", image: "21.jpg", score: 1000 },
-        { id: 22, name: "갸루", image: "22.jpg", score: 1000 },
-        { id: 23, name: "애기", image: "23.jpg", score: 1000 },
-        { id: 24, name: "런닝맨 댠닺", image: "24.jpg", score: 1000 },
-        { id: 25, name: "루드 뽀뽀", image: "25.jpg", score: 1000 },
-        { id: 26, name: "하뀨하 뽀뽀", image: "26.jpg", score: 1000 },
-        { id: 27, name: "지우야 사랑해", image: "27.jpg", score: 1000 },
-        { id: 28, name: "은근슬쩍 최지우", image: "28.jpg", score: 1000 },
-        { id: 29, name: "꼰듀 귀요미", image: "29.jpg", score: 1000 },
-        { id: 30, name: "지우 하고싶어요?", image: "30.jpg", score: 1000 },
-        { id: 31, name: "애기 조용", image: "31.jpg", score: 1000 },
-        { id: 32, name: "뽀뽀해", image: "32.jpg", score: 1000 }
-    ];
-
-    let items = [];
-    let currentRound = 1;
-    const maxRounds = 40;
-    let historyStack = [];
-    let currentChoices = [];
-    let lastSelectedId = null;
-    let shuffledQueue = [];
-    let lastChoices = null;
-
-    function startGame() {
-        items = rawItems.map(item => ({ ...item, score: 1000 }));
-        currentRound = 1;
-        historyStack = [];
-        currentChoices = [];
-        lastSelectedId = null;
-        lastChoices = null;
+    <!-- 3. 결과 화면 -->
+    <div id="result-screen" class="screen result-container hidden">
+        <div></div>
         
-        // 균등 분할 큐 생성 (첫 32라운드동안 모든 아이템이 정확히 1번씩 등장, 남은 8라운드는 무작위 세트)
-        let firstBatch = [...items].sort(() => 0.5 - Math.random());
-        let secondBatch = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
-        shuffledQueue = [...firstBatch, ...secondBatch];
+        <div class="result-content-wrapper">
+            <div class="result-title-main">좋아하는 댠닺 떡밥 <span class="highlight">9선</span></div>
+            <div class="result-grid" id="result-box"></div>
+        </div>
         
-        document.getElementById('start-screen').classList.add('hidden');
-        document.getElementById('game-screen').classList.remove('hidden');
-        nextRound();
-    }
+        <div class="result-btn-group">
+            <button class="static-gradient-btn sub-action-btn" onclick="resetGame()">다시 하기</button>
+        </div>
+    </div>
 
-    function nextRound(restoredChoices = null, restoredSelectedId = null, restoredLastChoices = null) {
-        if (currentRound > maxRounds) {
-            endGame();
-            return;
-        }
+    <script>
+        const rawItems = [
+            { id: 1, name: "연습실 하트", image: "1.jpg", score: 1000 },
+            { id: 2, name: "만두", image: "2.jpg", score: 1000 },
+            { id: 3, name: "스타즈 베이커리", image: "3.jpg", score: 1000 },
+            { id: 4, name: "댜니 생일", image: "4.jpg", score: 1000 },
+            { id: 5, name: "영화관 데이트", image: "5.jpg", score: 1000 },
+            { id: 6, name: "나 지우 옆에 갈래", image: "6.jpg", score: 1000 },
+            { id: 7, name: "에버랜드", image: "7.jpg", score: 1000 },
+            { id: 8, name: "스텔라는 저 좋아해요", image: "8.jpg", score: 1000 },
+            { id: 9, name: "커플 목걸이", image: "9.jpg", score: 1000 },
+            { id: 10, name: "어메이징 플러팅 실력", image: "10.jpg", score: 1000 },
+            { id: 11, name: "러브버그", image: "11.jpg", score: 1000 },
+            { id: 12, name: "더 자주 붙어 있도록 하세요", image: "12.jpg", score: 1000 },
+            { id: 13, name: "집착을 너무 심하게 하거든요", image: "13.jpg", score: 1000 },
+            { id: 14, name: "다현이 사랑해라고 해봐", image: "14.jpg", score: 1000 },
+            { id: 15, name: "뒷댠닺", image: "15.jpg", score: 1000 },
+            { id: 16, name: "귀여워", image: "16.jpg", score: 1000 },
+            { id: 17, name: "무릎", image: "17.jpg", score: 1000 },
+            { id: 18, name: "자기야", image: "18.jpg", score: 1000 },
+            { id: 19, name: "골져스 새침데기 플러팅", image: "19.jpg", score: 1000 },
+            { id: 20, name: "아웅다웅", image: "20.jpg", score: 1000 },
+            { id: 21, name: "손 만지작", image: "21.jpg", score: 1000 },
+            { id: 22, name: "갸루", image: "22.jpg", score: 1000 },
+            { id: 23, name: "애기", image: "23.jpg", score: 1000 },
+            { id: 24, name: "런닝맨 댠닺", image: "24.jpg", score: 1000 },
+            { id: 25, name: "루드 뽀뽀", image: "25.jpg", score: 1000 },
+            { id: 26, name: "하뀨하 뽀뽀", image: "26.jpg", score: 1000 },
+            { id: 27, name: "지우야 사랑해", image: "27.jpg", score: 1000 },
+            { id: 28, name: "은근슬쩍 최지우", image: "28.jpg", score: 1000 },
+            { id: 29, name: "꼰듀 귀요미", image: "29.jpg", score: 1000 },
+            { id: 30, name: "지우 하고싶어요?", image: "30.jpg", score: 1000 },
+            { id: 31, name: "애기 조용", image: "31.jpg", score: 1000 },
+            { id: 32, name: "뽀뽀해", image: "32.jpg", score: 1000 }
+        ];
 
-        let percent = Math.round(((currentRound - 1) / maxRounds) * 100);
-        document.getElementById('progress-text').innerText = `${percent}%`;
-        document.getElementById('progress-fill').style.width = `${percent}%`;
+        let items = [];
+        let currentRound = 1;
+        const maxRounds = 40;
+        let historyStack = [];
+        let currentChoices = [];
+        let lastSelectedId = null;
+        let shuffledQueue = [];
+        let lastChoices = null;
 
-        const backBtn = document.getElementById('back-btn');
-        if (currentRound > 1) {
-            backBtn.classList.remove('hidden');
-        } else {
-            backBtn.classList.add('hidden');
-        }
-
-        if (restoredChoices) {
-            currentChoices = restoredChoices;
-            lastSelectedId = restoredSelectedId;
-            lastChoices = restoredLastChoices;
-        } else {
-            let targetItem = shuffledQueue[currentRound - 1];
-            let others = items.filter(i => i.id !== targetItem.id).sort(() => 0.5 - Math.random()).slice(0, 3);
-            
-            let newChoices = [targetItem, ...others];
-
-            // 직전 라운드와 같은 그리드 슬롯에 동일한 카드가 연속으로 겹치지 않도록 방지
-            if (lastChoices && lastChoices.length === 4) {
-                let attempts = 0;
-                while (attempts < 50) {
-                    newChoices.sort(() => 0.5 - Math.random());
-                    let hasOverlap = newChoices.some((item, idx) => item.id === lastChoices[idx].id);
-                    if (!hasOverlap) break;
-                    attempts++;
-                }
-            }
-
-            currentChoices = newChoices;
+        function startGame() {
+            items = rawItems.map(item => ({ ...item, score: 1000 }));
+            currentRound = 1;
+            historyStack = [];
+            currentChoices = [];
             lastSelectedId = null;
+            lastChoices = null;
+            
+            // [완벽한 균등 분할 큐 생성]
+            // 첫 번째 바퀴: 32개 전체 아이템이 절대 안 겹치고 무조건 1번씩 다 나옴 (1~32라운드)
+            let firstBatch = [...items].sort(() => 0.5 - Math.random());
+            // 두 번째 바퀴: 남은 8라운드(33~40라운드)를 채우기 위해 32개 중 무작위로 8개를 골라 섞음 (이때도 1세트 내에서는 중복 없음)
+            let secondBatch = [...items].sort(() => 0.5 - Math.random()).slice(0, 8);
+            
+            shuffledQueue = [...firstBatch, ...secondBatch];
+            
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            nextRound();
         }
 
-        let box = document.getElementById('choices-box');
-        box.innerHTML = '';
-
-        currentChoices.forEach(item => {
-            let card = document.createElement('div');
-            card.className = 'choice-card';
-            
-            if (lastSelectedId === item.id) {
-                card.classList.add('selected');
+        function nextRound(restoredChoices = null, restoredSelectedId = null, restoredLastChoices = null) {
+            if (currentRound > maxRounds) {
+                endGame();
+                return;
             }
 
-            card.onclick = (e) => selectChoice(item, currentChoices, card);
-            
-            // 9번 사진(목걸이) 오른쪽 구도 강조 스타일 적용
-            let imgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
-            
-            card.innerHTML = `
-                <div class="card-img-wrap">
-                    <img src="${item.image}" alt="${item.name}" style="${imgStyle}">
-                </div>
-                <div class="card-info">
-                    <div class="card-name">${item.name}</div>
-                </div>
-            `;
-            box.appendChild(card);
-        });
-    }
+            let percent = Math.round(((currentRound - 1) / maxRounds) * 100);
+            document.getElementById('progress-text').innerText = `${percent}%`;
+            document.getElementById('progress-fill').style.width = `${percent}%`;
 
-    function selectChoice(selected, group, cardElement) {
-        document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
-        cardElement.classList.add('selected');
-
-        historyStack.push({
-            itemsState: items.map(i => ({ ...i })),
-            round: currentRound,
-            choices: [...currentChoices],
-            selectedId: selected.id,
-            queueState: [...shuffledQueue],
-            savedLastChoices: lastChoices ? [...lastChoices] : null
-        });
-
-        lastChoices = [...currentChoices];
-
-        selected.score += 40;
-        group.forEach(item => {
-            if (item.id !== selected.id) {
-                item.score -= 10;
+            const backBtn = document.getElementById('back-btn');
+            if (currentRound > 1) {
+                backBtn.classList.remove('hidden');
+            } else {
+                backBtn.classList.add('hidden');
             }
-        });
 
-        currentRound++;
+            if (restoredChoices) {
+                currentChoices = restoredChoices;
+                lastSelectedId = restoredSelectedId;
+                lastChoices = restoredLastChoices;
+            } else {
+                let targetItem = shuffledQueue[currentRound - 1];
+                let others = items.filter(i => i.id !== targetItem.id).sort(() => 0.5 - Math.random()).slice(0, 3);
+                
+                let newChoices = [targetItem, ...others];
 
-        setTimeout(() => {
-            nextRound();
-        }, 250);
-    }
+                if (lastChoices && lastChoices.length === 4) {
+                    let attempts = 0;
+                    while (attempts < 50) {
+                        newChoices.sort(() => 0.5 - Math.random());
+                        let hasOverlap = newChoices.some((item, idx) => item.id === lastChoices[idx].id);
+                        if (!hasOverlap) break;
+                        attempts++;
+                    }
+                }
 
-    function goBack() {
-        if (historyStack.length === 0) return;
+                currentChoices = newChoices;
+                lastSelectedId = null;
+            }
 
-        const lastState = historyStack.pop();
-        items = lastState.itemsState;
-        currentRound = lastState.round;
-        shuffledQueue = lastState.queueState;
+            let box = document.getElementById('choices-box');
+            box.innerHTML = '';
 
-        nextRound(lastState.choices, lastState.selectedId, lastState.savedLastChoices);
-    }
+            currentChoices.forEach(item => {
+                let card = document.createElement('div');
+                card.className = 'choice-card';
+                
+                if (lastSelectedId === item.id) {
+                    card.classList.add('selected');
+                }
 
-    function endGame() {
-        document.getElementById('game-screen').classList.add('hidden');
-        document.getElementById('result-screen').classList.remove('hidden');
+                card.onclick = (e) => selectChoice(item, currentChoices, card);
+                
+                let imgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
+                
+                card.innerHTML = `
+                    <div class="card-img-wrap">
+                        <img src="${item.image}" alt="${item.name}" style="${imgStyle}">
+                    </div>
+                    <div class="card-info">
+                        <div class="card-name">${item.name}</div>
+                    </div>
+                `;
+                box.appendChild(card);
+            });
+        }
 
-        let sorted = [...items].sort((a, b) => b.score - a.score);
-        let top9 = sorted.slice(0, 9);
+        function selectChoice(selected, group, cardElement) {
+            document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+            cardElement.classList.add('selected');
 
-        const customOrderIndices = [3, 4, 5, 1, 0, 2, 6, 7, 8];
-        let orderedTop9 = customOrderIndices.map(index => top9[index]);
+            historyStack.push({
+                itemsState: items.map(i => ({ ...i })),
+                round: currentRound,
+                choices: [...currentChoices],
+                selectedId: selected.id,
+                queueState: [...shuffledQueue],
+                savedLastChoices: lastChoices ? [...lastChoices] : null
+            });
 
-        let resultBox = document.getElementById('result-box');
-        resultBox.innerHTML = '';
+            lastChoices = [...currentChoices];
 
-        orderedTop9.forEach((item) => {
-            let actualRank = sorted.findIndex(i => i.id === item.id) + 1;
-            
-            let card = document.createElement('div');
-            card.className = 'result-card';
-            
-            let resultImgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
+            selected.score += 40;
+            group.forEach(item => {
+                if (item.id !== selected.id) {
+                    item.score -= 10;
+                }
+            });
 
-            card.innerHTML = `
-                <div class="result-img-wrap">
-                    <div class="result-rank ${actualRank === 1 ? 'rank-1-badge' : ''}">${actualRank}위</div>
-                    <img src="${item.image}" alt="${item.name}" style="${resultImgStyle}">
-                </div>
-                <div class="result-name">${item.name}</div>
-            `;
-            resultBox.appendChild(card);
-        });
-    }
+            currentRound++;
 
-    function resetGame() {
-        document.getElementById('result-screen').classList.add('hidden');
-        document.getElementById('start-screen').classList.remove('hidden');
-    }
-</script>
+            setTimeout(() => {
+                nextRound();
+            }, 250);
+        }
+
+        function goBack() {
+            if (historyStack.length === 0) return;
+
+            const lastState = historyStack.pop();
+            items = lastState.itemsState;
+            currentRound = lastState.round;
+            shuffledQueue = lastState.queueState;
+
+            nextRound(lastState.choices, lastState.selectedId, lastState.savedLastChoices);
+        }
+
+        function endGame() {
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            let sorted = [...items].sort((a, b) => b.score - a.score);
+            let top9 = sorted.slice(0, 9);
+
+            const customOrderIndices = [3, 4, 5, 1, 0, 2, 6, 7, 8];
+            let orderedTop9 = customOrderIndices.map(index => top9[index]);
+
+            let resultBox = document.getElementById('result-box');
+            resultBox.innerHTML = '';
+
+            orderedTop9.forEach((item) => {
+                let actualRank = sorted.findIndex(i => i.id === item.id) + 1;
+                
+                let card = document.createElement('div');
+                card.className, 'result-card';
+                card.className = 'result-card';
+                
+                let resultImgStyle = item.id === 9 ? 'object-position: 80% center;' : '';
+
+                card.innerHTML = `
+                    <div class="result-img-wrap">
+                        <div class="result-rank ${actualRank === 1 ? 'rank-1-badge' : ''}">${actualRank}위</div>
+                        <img src="${item.image}" alt="${item.name}" style="${resultImgStyle}">
+                    </div>
+                    <div class="result-name">${item.name}</div>
+                `;
+                resultBox.appendChild(card);
+            });
+        }
+
+        function resetGame() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
